@@ -1,6 +1,7 @@
 <?php
 namespace Router\Tests;
 
+use DateTime;
 use Router\ResponseCookie;
 
 class ResponseCookieTest extends AbstractKleinTest
@@ -16,7 +17,7 @@ class ResponseCookieTest extends AbstractKleinTest
         $default_sample_data = array(
             'name' => '',
             'value' => '',
-            'expire' => 0,
+            'expiration' => null,
             'path' => '',
             'domain' => '',
             'secure' => false,
@@ -26,7 +27,7 @@ class ResponseCookieTest extends AbstractKleinTest
         $sample_data = array(
             'name' => 'Trevor',
             'value' => 'is a programmer',
-            'expire' => 3600,
+            'expiration' => new DateTime(date('Y-m-d H:i:s', time() + 3600)),
             'path' => '/',
             'domain' => 'example.com',
             'secure' => false,
@@ -36,7 +37,7 @@ class ResponseCookieTest extends AbstractKleinTest
         $sample_data_other = array(
             'name' => 'Chris',
             'value' => 'is a boss',
-            'expire' => 60,
+            'expiration' => new DateTime(date('Y-m-d H:i:s', time() + 60)),
             'path' => '/app/',
             'domain' => 'github.com',
             'secure' => true,
@@ -47,11 +48,6 @@ class ResponseCookieTest extends AbstractKleinTest
             array($default_sample_data, $sample_data, $sample_data_other),
         );
     }
-
-
-    /*
-     * Tests
-     */
 
     /**
      * @dataProvider sampleDataProvider
@@ -88,21 +84,21 @@ class ResponseCookieTest extends AbstractKleinTest
     /**
      * @dataProvider sampleDataProvider
      */
-    public function testExpireGetSet($defaults, $sample_data, $sample_data_other)
+    public function testExpirationGetSet($defaults, $sample_data, $sample_data_other)
     {
         $response_cookie = new ResponseCookie(
             $defaults['name'],
             null,
-            $sample_data['expire']
+            $sample_data['expiration']
         );
 
-        $this->assertSame($sample_data['expire'], $response_cookie->getExpire());
-        $this->assertInternalType('int', $response_cookie->getExpire());
+        $this->assertSame($sample_data['expiration'], $response_cookie->getExpiration());
+        $this->assertInstanceOf(DateTime::class, $response_cookie->getExpiration());
 
-        $response_cookie->setExpire($sample_data_other['expire']);
+        $response_cookie->setExpiration($sample_data_other['expiration']);
 
-        $this->assertSame($sample_data_other['expire'], $response_cookie->getExpire());
-        $this->assertInternalType('int', $response_cookie->getExpire());
+        $this->assertSame($sample_data_other['expiration'], $response_cookie->getExpiration());
+        $this->assertInstanceOf(DateTime::class, $response_cookie->getExpiration());
     }
 
     /**

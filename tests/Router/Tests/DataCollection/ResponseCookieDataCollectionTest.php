@@ -1,6 +1,7 @@
 <?php
 namespace Router\Tests\DataCollection;
 
+use DateTime;
 use Router\DataCollection\ResponseCookieDataCollection;
 use Router\ResponseCookie;
 use Router\Tests\AbstractKleinTest;
@@ -18,7 +19,7 @@ class ResponseCookieDataCollectionTest extends AbstractKleinTest
         $sample_cookie = new ResponseCookie(
             'Trevor',
             'is a programmer',
-            3600,
+            new DateTime(date('Y-m-d H:i:s', time() + 3600)),
             '/',
             'example.com',
             false,
@@ -28,7 +29,7 @@ class ResponseCookieDataCollectionTest extends AbstractKleinTest
         $sample_other_cookie = new ResponseCookie(
             'Chris',
             'is a boss',
-            60,
+            new DateTime(date('Y-m-d H:i:s', time() + 60)),
             '/app/',
             'github.com',
             true,

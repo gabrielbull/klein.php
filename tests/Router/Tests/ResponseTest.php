@@ -96,7 +96,7 @@ class ResponsesTest extends AbstractKleinTest
         $response = new Response('ein');
         $response->prepend('Kl');
 
-        $this->assertSame('Router', $response->body());
+        $this->assertSame('Klein', $response->body());
     }
 
     public function testAppend()
@@ -104,7 +104,7 @@ class ResponsesTest extends AbstractKleinTest
         $response = new Response('Kl');
         $response->append('ein');
 
-        $this->assertSame('Router', $response->body());
+        $this->assertSame('Klein', $response->body());
     }
 
     public function testLockToggleAndGetters()
@@ -321,7 +321,7 @@ class ResponsesTest extends AbstractKleinTest
         $test_cookie_data = array(
             'name' => 'name',
             'value' => 'value',
-            'expiry' => null,
+            'expiration' => null,
             'path' => '/path',
             'domain' => 'whatever.com',
             'secure' => true,
@@ -331,7 +331,7 @@ class ResponsesTest extends AbstractKleinTest
         $test_cookie = new ResponseCookie(
             $test_cookie_data['name'],
             $test_cookie_data['value'],
-            $test_cookie_data['expiry'],
+            $test_cookie_data['expiration'],
             $test_cookie_data['path'],
             $test_cookie_data['domain'],
             $test_cookie_data['secure'],
@@ -344,14 +344,9 @@ class ResponsesTest extends AbstractKleinTest
         $this->assertEmpty($response->cookies()->all());
 
         // Set a cookies
-        $response->cookie(
+        $response->cookies()->set(
             $test_cookie_data['name'],
-            $test_cookie_data['value'],
-            $test_cookie_data['expiry'],
-            $test_cookie_data['path'],
-            $test_cookie_data['domain'],
-            $test_cookie_data['secure'],
-            $test_cookie_data['httponly']
+            $test_cookie
         );
 
         $this->assertNotEmpty($response->cookies()->all());
@@ -366,7 +361,7 @@ class ResponsesTest extends AbstractKleinTest
         $this->assertSame($test_cookie_data['domain'], $the_cookie->getDomain());
         $this->assertSame($test_cookie_data['secure'], $the_cookie->getSecure());
         $this->assertSame($test_cookie_data['httponly'], $the_cookie->getHttpOnly());
-        $this->assertNotNull($the_cookie->getExpire());
+        $this->assertNull($the_cookie->getExpiration());
     }
 
     public function testNoCache()

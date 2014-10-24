@@ -1,6 +1,8 @@
 <?php
 namespace Router;
 
+use DateTime;
+
 class ResponseCookie
 {
     /**
@@ -20,11 +22,9 @@ class ResponseCookie
     /**
      * The date/time that the cookie should expire
      *
-     * Represented by a Unix "Timestamp"
-     *
-     * @var int
+     * @var DateTime
      */
-    protected $expire;
+    protected $expiration;
 
     /**
      * The path on the server that the cookie will
@@ -64,7 +64,7 @@ class ResponseCookie
      *
      * @param string $name The name of the cookie
      * @param string $value The value to set the cookie with
-     * @param int $expire The time that the cookie should expire
+     * @param DateTime $expiration The time that the cookie should expire
      * @param string $path The path of which to restrict the cookie
      * @param string $domain The domain of which to restrict the cookie
      * @param boolean $secure Flag of whether the cookie should only be sent over a HTTPS connection
@@ -73,7 +73,7 @@ class ResponseCookie
     public function __construct(
         $name,
         $value = null,
-        $expire = null,
+        DateTime $expiration = null,
         $path = null,
         $domain = null,
         $secure = false,
@@ -83,7 +83,7 @@ class ResponseCookie
         // Initialize our properties
         $this->setName($name);
         $this->setValue($value);
-        $this->setExpire($expire);
+        $this->setExpiration($expiration);
         $this->setPath($path);
         $this->setDomain($domain);
         $this->setSecure($secure);
@@ -104,7 +104,7 @@ class ResponseCookie
      * Sets the cookie's name
      *
      * @param string $name
-     * @return ResponseCookie
+     * @return $this
      */
     public function setName($name)
     {
@@ -127,7 +127,7 @@ class ResponseCookie
      * Sets the cookie's value
      *
      * @param string $value
-     * @return ResponseCookie
+     * @return $this
      */
     public function setValue($value)
     {
@@ -141,32 +141,24 @@ class ResponseCookie
     }
 
     /**
-     * Gets the cookie's expire time
+     * Gets the cookie's expiration date/time
      *
-     * @return int
+     * @return null|DateTime
      */
-    public function getExpire()
+    public function getExpiration()
     {
-        return $this->expire;
+        return $this->expiration;
     }
 
     /**
-     * Sets the cookie's expire time
+     * Sets the cookie's expiration date/time
      *
-     * The time should be an integer
-     * representing a Unix timestamp
-     *
-     * @param int $expire
-     * @return ResponseCookie
+     * @param DateTime $expiration
+     * @return $this
      */
-    public function setExpire($expire)
+    public function setExpiration(DateTime $expiration = null)
     {
-        if (null !== $expire) {
-            $this->expire = (int)$expire;
-        } else {
-            $this->expire = $expire;
-        }
-
+        $this->expiration = $expiration;
         return $this;
     }
 
@@ -184,7 +176,7 @@ class ResponseCookie
      * Sets the cookie's path
      *
      * @param string $path
-     * @return ResponseCookie
+     * @return $this
      */
     public function setPath($path)
     {
@@ -211,7 +203,7 @@ class ResponseCookie
      * Sets the cookie's domain
      *
      * @param string $domain
-     * @return ResponseCookie
+     * @return $this
      */
     public function setDomain($domain)
     {
@@ -238,7 +230,7 @@ class ResponseCookie
      * Sets the cookie's secure only flag
      *
      * @param boolean $secure
-     * @return ResponseCookie
+     * @return $this
      */
     public function setSecure($secure)
     {
@@ -261,7 +253,7 @@ class ResponseCookie
      * Sets the cookie's HTTP only flag
      *
      * @param boolean $http_only
-     * @return ResponseCookie
+     * @return $this
      */
     public function setHttpOnly($http_only)
     {

@@ -46,7 +46,7 @@ class AppTest extends AbstractKleinTest
     }
 
     /**
-     * @expectedException Klein\Exceptions\UnknownServiceException
+     * @expectedException \Router\Exceptions\UnknownServiceException
      */
     public function testGetBadMethod()
     {
@@ -79,7 +79,7 @@ class AppTest extends AbstractKleinTest
 
     /**
      * @depends testRegisterFiller
-     * @expectedException Klein\Exceptions\DuplicateServiceException
+     * @expectedException \Router\Exceptions\DuplicateServiceException
      */
     public function testRegisterDuplicateMethod(array $args)
     {

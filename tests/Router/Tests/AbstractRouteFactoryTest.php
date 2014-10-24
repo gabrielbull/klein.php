@@ -13,14 +13,14 @@ class AbstractRouteFactoryTest extends AbstractKleinTest
 
     protected function getMockForFactory()
     {
-        return $this->getMockForAbstractClass('\Klein\AbstractRouteFactory');
+        return $this->getMockForAbstractClass('\Router\AbstractRouteFactory');
     }
 
     protected function getMockBuilderForFactory(array $methods_to_mock = null)
     {
         $methods_to_mock = $methods_to_mock ?: $this->getDefaultMethodsToMock();
 
-        return $this->getMockBuilder('\Klein\AbstractRouteFactory')
+        return $this->getMockBuilder('\Router\AbstractRouteFactory')
             ->setMethods($methods_to_mock);
     }
 

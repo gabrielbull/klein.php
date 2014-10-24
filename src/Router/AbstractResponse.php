@@ -1,6 +1,7 @@
 <?php
 namespace Router;
 
+use DateTime;
 use Router\DataCollection\HeaderDataCollection;
 use Router\DataCollection\ResponseCookieDataCollection;
 use Router\Exceptions\LockedResponseException;
@@ -46,7 +47,7 @@ abstract class AbstractResponse
     /**
      * HTTP response cookies
      *
-     * @var \Router\DataCollection\ResponseCookieDataCollection
+     * @var \Router\DataCollection\ResponseCookieDataCollection|ResponseCookie[]
      */
     protected $cookies;
 
@@ -71,7 +72,6 @@ abstract class AbstractResponse
      * @var boolean
      */
     public $chunked = false;
-
 
     /**
      * Constructor
@@ -199,7 +199,7 @@ abstract class AbstractResponse
      * Prepend a string to the response's content body
      *
      * @param string $content The string to prepend
-     * @return AbstractResponse
+     * @return $this
      */
     public function prepend($content)
     {
@@ -215,7 +215,7 @@ abstract class AbstractResponse
      * Append a string to the response's content body
      *
      * @param string $content The string to append
-     * @return AbstractResponse
+     * @return $this
      */
     public function append($content)
     {
@@ -245,7 +245,7 @@ abstract class AbstractResponse
      * when its locked
      *
      * @throws LockedResponseException  If the response is locked
-     * @return AbstractResponse
+     * @return $this
      */
     public function requireUnlocked()
     {
@@ -259,7 +259,7 @@ abstract class AbstractResponse
     /**
      * Lock the response from further modification
      *
-     * @return AbstractResponse
+     * @return $this
      */
     public function lock()
     {
@@ -271,7 +271,7 @@ abstract class AbstractResponse
     /**
      * Unlock the response from further modification
      *
-     * @return AbstractResponse
+     * @return $this
      */
     public function unlock()
     {
@@ -297,7 +297,7 @@ abstract class AbstractResponse
      *
      * @param boolean $cookies_also Whether or not to also send the cookies after sending the normal headers
      * @param boolean $override Whether or not to override the check if headers have already been sent
-     * @return AbstractResponse
+     * @return $this
      */
     public function sendHeaders($cookies_also = true, $override = false)
     {
@@ -324,7 +324,7 @@ abstract class AbstractResponse
      * Send our HTTP response cookies
      *
      * @param boolean $override Whether or not to override the check if headers have already been sent
-     * @return AbstractResponse
+     * @return $this
      */
     public function sendCookies($override = false)
     {
@@ -334,11 +334,12 @@ abstract class AbstractResponse
 
         // Iterate through our Cookies data collection and set each cookie natively
         foreach ($this->cookies as $cookie) {
+            $expiration = $cookie->getExpiration();
             // Use the built-in PHP "setcookie" function
             setcookie(
                 $cookie->getName(),
                 $cookie->getValue(),
-                $cookie->getExpire(),
+                $expiration instanceof DateTime ? $expiration->getTimestamp() : null,
                 $cookie->getPath(),
                 $cookie->getDomain(),
                 $cookie->getSecure(),
@@ -352,7 +353,7 @@ abstract class AbstractResponse
     /**
      * Send our body's contents
      *
-     * @return AbstractResponse
+     * @return $this
      */
     public function sendBody()
     {
@@ -366,7 +367,7 @@ abstract class AbstractResponse
      *
      * @param boolean $override Whether or not to override the check if the response has already been sent
      * @throws ResponseAlreadySentException If the response has already been sent
-     * @return AbstractResponse
+     * @return $this
      */
     public function send($override = false)
     {
@@ -407,7 +408,7 @@ abstract class AbstractResponse
      *
      * @link https://github.com/chriso/klein.php/wiki/Response-Chunking
      * @link http://bit.ly/hg3gHb
-     * @return AbstractResponse
+     * @return $this
      */
     public function chunk()
     {
@@ -433,7 +434,7 @@ abstract class AbstractResponse
      *
      * @param string $key The name of the HTTP response header
      * @param mixed $value The value to set the header with
-     * @return AbstractResponse
+     * @return $this
      */
     public function header($key, $value)
     {
@@ -443,43 +444,9 @@ abstract class AbstractResponse
     }
 
     /**
-     * Sets a response cookie
-     *
-     * @param string $key The name of the cookie
-     * @param string $value The value to set the cookie with
-     * @param int $expiry The time that the cookie should expire
-     * @param string $path The path of which to restrict the cookie
-     * @param string $domain The domain of which to restrict the cookie
-     * @param boolean $secure Flag of whether the cookie should only be sent over a HTTPS connection
-     * @param boolean $httponly Flag of whether the cookie should only be accessible over the HTTP protocol
-     * @return AbstractResponse
-     */
-    public function cookie(
-        $key,
-        $value = '',
-        $expiry = null,
-        $path = '/',
-        $domain = null,
-        $secure = false,
-        $httponly = false
-    )
-    {
-        if (null === $expiry) {
-            $expiry = time() + (3600 * 24 * 30);
-        }
-
-        $this->cookies->set(
-            $key,
-            new ResponseCookie($key, $value, $expiry, $path, $domain, $secure, $httponly)
-        );
-
-        return $this;
-    }
-
-    /**
      * Tell the browser not to cache the response
      *
-     * @return AbstractResponse
+     * @return $this
      */
     public function noCache()
     {
@@ -494,7 +461,7 @@ abstract class AbstractResponse
      *
      * @param string $url The URL to redirect to
      * @param int $code The HTTP status code to use for redirection
-     * @return AbstractResponse
+     * @return $this
      */
     public function redirect($url, $code = 302)
     {

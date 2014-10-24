@@ -17,7 +17,6 @@ abstract class AbstractKleinTest extends PHPUnit_Framework_TestCase
      */
     protected $klein_app;
 
-
     /**
      * Setup our test
      * (runs before each test)

@@ -347,7 +347,7 @@ class KleinTest extends AbstractKleinTest
     }
 
     /**
-     * @expectedException Klein\Exceptions\UnhandledException
+     * @expectedException \Router\Exceptions\UnhandledException
      */
     public function testAfterDispatchWithCallableThatThrowsException()
     {
