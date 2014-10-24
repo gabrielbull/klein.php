@@ -13,7 +13,7 @@ use Router\Response;
 use Router\Route;
 use Router\ServiceProvider;
 
-class KleinTest extends AbstractKleinTest
+class RouterTest extends AbstractKleinTest
 {
 
     const TEST_CALLBACK_MESSAGE = 'yay';
