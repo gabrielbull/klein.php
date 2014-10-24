@@ -5,7 +5,6 @@ use PHPUnit_Framework_TestCase;
 use Router\Klein;
 use Router\Request;
 use Router\Response;
-use Router\Tests\Mocks\HeadersNoOp;
 
 abstract class AbstractKleinTest extends PHPUnit_Framework_TestCase
 {

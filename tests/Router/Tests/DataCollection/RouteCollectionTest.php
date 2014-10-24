@@ -48,11 +48,6 @@ class RouteCollectionTest extends AbstractKleinTest
         );
     }
 
-
-    /*
-     * Tests
-     */
-
     /**
      * @dataProvider sampleDataProvider
      */

@@ -13,11 +13,6 @@ class HeaderDataCollectionTest extends AbstractKleinTest
      */
     protected static $nonexistent_key = 'non-standard-header';
 
-
-    /*
-     * Data Providers and Methods
-     */
-
     /**
      * Quickly makes sure that no sample data arrays
      * have any keys that match the "nonexistent_key"

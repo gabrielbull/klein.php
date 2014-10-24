@@ -11,7 +11,7 @@
 
 ## Getting started
 
-1. PHP 5.3.x is required
+1. PHP 5.6.x is required
 2. Install Router using [Composer](#composer-installation) (recommended) or manually
 3. Setup [URL rewriting](https://gist.github.com/874000) so that all requests are handled by **index.php**
 4. (Optional) Throw in some [APC](http://pecl.php.net/package/APC) for good measure
@@ -19,7 +19,7 @@
 ## Composer Installation
 
 1. Get [Composer](http://getcomposer.org/)
-2. Require Router with `php composer.phar require klein/klein v2.0.x`
+2. Require Router with `php composer.phar require gabrielbull/router`
 3. Install dependencies with `php composer.phar install`
 
 ## Example
@@ -398,43 +398,3 @@ $validator->
     not<Validator>()                    // The validator can't match
     <Validator>()                       // Alias for is<Validator>()
 ```
-
-## Unit Testing
-
-Unit tests are a crucial part of developing a routing engine such as Router.
-Added features or bug-fixes can have adverse effects that are hard to find
-without a lot of testing, hence the importance of unit testing.
-
-This project uses [PHPUnit](https://github.com/sebastianbergmann/phpunit/) as
-its unit testing framework.
-
-The tests all live in `/tests` and each test extends an abstract class
-`AbstractKleinTest`
-
-To test the project, simply run `php composer.phar install --dev` to download
-a common version of PHPUnit with composer and run the tests from the main
-directory with `./vendor/bin/phpunit`
-
-## Contributing
-
-See the [contributing guide](CONTRIBUTING.md) for more info
-
-## More information
-
-See the [wiki](https://github.com/chriso/klein.php/wiki) for more information
-
-## Contributors
-
-- [Trevor N. Suarez](https://github.com/Rican7)
-
-## License
-
-(MIT License)
-
-Copyright (c) 2010 Chris O'Hara <cohara87@gmail.com>
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
