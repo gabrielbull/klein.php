@@ -1,8 +1,9 @@
 # Router
 
-[![Build Status](https://travis-ci.org/chriso/klein.php.png?branch=master)](https://travis-ci.org/chriso/klein.php)
-
-**klein.php** is a lightning fast router for PHP 5.3+
+[![Build Status](https://img.shields.io/travis/gabrielbull/router/master.svg?style=flat)](https://travis-ci.org/gabrielbull/router)
+[![Latest Stable Version](http://img.shields.io/packagist/v/gabrielbull/router.svg?style=flat)](https://packagist.org/packages/gabrielbull/router)
+[![Total Downloads](https://img.shields.io/packagist/dm/gabrielbull/router.svg?style=flat)](https://packagist.org/packages/gabrielbull/router)
+[![License](https://img.shields.io/packagist/l/gabrielbull/router.svg?style=flat)](https://packagist.org/packages/gabrielbull/router)
 
 * Flexible regular expression routing (inspired by [Sinatra](http://www.sinatrarb.com/))
 * A set of [boilerplate methods](#api) for rapidly building web apps
@@ -29,19 +30,19 @@
 <?php
 require_once __DIR__ . '/vendor/autoload.php';
 
-$klein = new \Router\Router();
+$router = new \Router\Router();
 
-$klein->respond('GET', '/hello-world', function () {
+$router->respond('GET', '/hello-world', function () {
     return 'Hello World!';
 });
 
-$klein->dispatch();
+$router->dispatch();
 ```
 
 *Example 1* - Respond to all requests
 
 ```php
-$klein->respond(function () {
+$router->respond(function () {
     return 'All the things';
 });
 ```
@@ -49,7 +50,7 @@ $klein->respond(function () {
 *Example 2* - Named parameters
 
 ```php
-$klein->respond('/[:name]', function ($request) {
+$router->respond('/[:name]', function ($request) {
     return 'Hello ' . $request->name;
 });
 ```
@@ -57,17 +58,17 @@ $klein->respond('/[:name]', function ($request) {
 *Example 3* - [So RESTful](http://bit.ly/g93B1s)
 
 ```php
-$klein->respond('GET', '/posts', $callback);
-$klein->respond('POST', '/posts', $callback);
-$klein->respond('PUT', '/posts/[i:id]', $callback);
-$klein->respond('DELETE', '/posts/[i:id]', $callback);
-$klein->respond('OPTIONS', null, $callback);
+$router->respond('GET', '/posts', $callback);
+$router->respond('POST', '/posts', $callback);
+$router->respond('PUT', '/posts/[i:id]', $callback);
+$router->respond('DELETE', '/posts/[i:id]', $callback);
+$router->respond('OPTIONS', null, $callback);
 
 // To match multiple request methods:
-$klein->respond(array('POST','GET'), $route, $callback);
+$router->respond(array('POST','GET'), $route, $callback);
 
 // Or you might want to handle the requests in the same place
-$klein->respond('/posts/[create|edit:action]?/[i:id]?', function ($request, $response) {
+$router->respond('/posts/[create|edit:action]?/[i:id]?', function ($request, $response) {
     switch ($request->action) {
         //
     }
@@ -77,7 +78,7 @@ $klein->respond('/posts/[create|edit:action]?/[i:id]?', function ($request, $res
 *Example 4* - Sending objects / files
 
 ```php
-$klein->respond(function ($request, $response, $service) {
+$router->respond(function ($request, $response, $service) {
     $service->xml = function ($object) {
         // Custom xml output function
     }
@@ -86,13 +87,13 @@ $klein->respond(function ($request, $response, $service) {
     }
 });
 
-$klein->respond('/report.[xml|csv|json:format]?', function ($request, $response, $service) {
+$router->respond('/report.[xml|csv|json:format]?', function ($request, $response, $service) {
     // Get the format or fallback to JSON as the default
     $send = $request->param('format', 'json');
     $service->$send($report);
 });
 
-$klein->respond('/report/latest', function ($request, $response, $service) {
+$router->respond('/report/latest', function ($request, $response, $service) {
     $response->file('/tmp/cached_report.zip');
 });
 ```
@@ -100,11 +101,11 @@ $klein->respond('/report/latest', function ($request, $response, $service) {
 *Example 5* - All together
 
 ```php
-$klein->respond(function ($request, $response, $service, $app) use ($klein) {
+$router->respond(function ($request, $response, $service, $app) use ($router) {
     // Handle exceptions => flash the message and redirect to the referrer
-    $klein->onError(function ($klein, $err_msg) {
-        $klein->service()->flash($err_msg);
-        $klein->service()->back();
+    $router->onError(function ($router, $err_msg) {
+        $router->service()->flash($err_msg);
+        $router->service()->back();
     });
 
     // The fourth parameter can be used to share scope and global objects
@@ -117,7 +118,7 @@ $klein->respond(function ($request, $response, $service, $app) use ($klein) {
     });
 });
 
-$klein->respond('POST', '/users/[i:id]/edit', function ($request, $response, $service, $app) {
+$router->respond('POST', '/users/[i:id]/edit', function ($request, $response, $service, $app) {
     // Quickly validate input parameters
     $service->validateParam('username', 'Please enter a valid username')->isLen(5, 64)->isChars('a-zA-Z0-9-');
     $service->validateParam('password')->notNull();
@@ -140,13 +141,13 @@ $klein->respond('POST', '/users/[i:id]/edit', function ($request, $response, $se
 ## Route namespaces
 
 ```php
-$klein->with('/users', function () use ($klein) {
+$router->with('/users', function () use ($router) {
 
-    $klein->respond('GET', '/?', function ($request, $response) {
+    $router->respond('GET', '/?', function ($request, $response) {
         // Show all users
     });
 
-    $klein->respond('GET', '/[:id]', function ($request, $response) {
+    $router->respond('GET', '/[:id]', function ($request, $response) {
         // Show a single user
     });
 
@@ -154,11 +155,11 @@ $klein->with('/users', function () use ($klein) {
 
 foreach(array('projects', 'posts') as $controller) {
     // Include all routes defined in a file under a given namespace
-    $klein->with("/$controller", "controllers/$controller.php");
+    $router->with("/$controller", "controllers/$controller.php");
 }
 ```
 
-Included files are run in the scope of Router (`$klein`) so all Router
+Included files are run in the scope of Router (`$router`) so all Router
 methods/properties can be accessed with `$this`
 
 _Example file for: "controllers/projects.php"_
@@ -176,7 +177,7 @@ first use.
 
 ``` php
 <?php
-$klein->respond(function ($request, $response, $service, $app) {
+$router->respond(function ($request, $response, $service, $app) {
     $app->register('lazyDb', function() {
         $db = new stdClass();
         $db->name = 'foo';
@@ -186,7 +187,7 @@ $klein->respond(function ($request, $response, $service, $app) {
 
 //Later
 
-$klein->respond('GET', '/posts', function ($request, $response, $service, $app) {
+$router->respond('GET', '/posts', function ($request, $response, $service, $app) {
     // $db is initialised on first request
     // all subsequent calls will use the same instance
     return $app->lazyDb->name;
@@ -251,9 +252,9 @@ authentication or view layouts. e.g. as a basic example, the following
 code will wrap other routes with a header and footer
 
 ```php
-$klein->respond('*', function ($request, $response, $service) { $service->render('header.phtml'); });
+$router->respond('*', function ($request, $response, $service) { $service->render('header.phtml'); });
 //other routes
-$klein->respond('*', function ($request, $response, $service) { $service->render('footer.phtml'); });
+$router->respond('*', function ($request, $response, $service) { $service->render('footer.phtml'); });
 ```
 
 Routes automatically match the entire request URI. If you need to match
@@ -262,10 +263,10 @@ negate a route, use the `!` operator
 
 ```php
 // Match all requests that end with '.json' or '.csv'
-$klein->respond('@\.(json|csv)$', ...
+$router->respond('@\.(json|csv)$', ...
 
 // Match all requests that _don't_ start with /admin
-$klein->respond('!@^/admin/', ...
+$router->respond('!@^/admin/', ...
 ```
 
 ## Views
