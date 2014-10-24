@@ -1,37 +1,14 @@
 <?php
-/**
- * Router (klein.php) - A lightning fast router for PHP
- *
- * @author      Chris O'Hara <cohara87@gmail.com>
- * @author      Trevor Suarez (Rican7) (contributor and v2 refactorer)
- * @copyright   (c) Chris O'Hara
- * @link        https://github.com/chriso/klein.php
- * @license     MIT
- */
-
 namespace Router\Tests;
 
 use Router\App;
 
-/**
- * AppTest
- *
- * @uses AbstractKleinTest
- * @package Router\Tests
- */
 class AppTest extends AbstractKleinTest
 {
-
-    /**
-     * Constants
-     */
 
     const TEST_CALLBACK_MESSAGE = 'yay';
 
 
-    /**
-     * Helpers
-     */
 
     protected function getTestCallable($message = self::TEST_CALLBACK_MESSAGE)
     {
@@ -41,9 +18,6 @@ class AppTest extends AbstractKleinTest
     }
 
 
-    /**
-     * Tests
-     */
 
     public function testRegisterFiller()
     {

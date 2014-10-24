@@ -1,38 +1,14 @@
 <?php
-/**
- * Router (klein.php) - A lightning fast router for PHP
- *
- * @author      Chris O'Hara <cohara87@gmail.com>
- * @author      Trevor Suarez (Rican7) (contributor and v2 refactorer)
- * @copyright   (c) Chris O'Hara
- * @link        https://github.com/chriso/klein.php
- * @license     MIT
- */
-
 namespace Router;
 
-use \Router\DataCollection\DataCollection;
+use Router\DataCollection\DataCollection;
 
-/**
- * ServiceProvider 
- *
- * Service provider class for handling logic extending between
- * a request's data and a response's behavior
- * 
- * @package     Router
- */
 class ServiceProvider
 {
-
-    /**
-     * Class properties
-     */
-
     /**
      * The Request instance containing HTTP request data and behaviors
      *
      * @var Request
-     * @access protected
      */
     protected $request;
 
@@ -40,7 +16,6 @@ class ServiceProvider
      * The Response instance containing HTTP response data and behaviors
      *
      * @var Response
-     * @access protected
      */
     protected $response;
 
@@ -48,7 +23,6 @@ class ServiceProvider
      * The id of the current PHP session
      *
      * @var string
-     * @access protected
      */
     protected $session_id;
 
@@ -56,7 +30,6 @@ class ServiceProvider
      * The view layout
      *
      * @var string
-     * @access protected
      */
     protected $layout;
 
@@ -64,7 +37,6 @@ class ServiceProvider
      * The view to render
      *
      * @var string
-     * @access protected
      */
     protected $view;
 
@@ -72,21 +44,16 @@ class ServiceProvider
      * Shared data collection
      *
      * @var \Router\DataCollection\DataCollection
-     * @access protected
      */
     protected $shared_data;
 
 
-    /**
-     * Methods
-     */
 
     /**
      * Constructor
      *
      * @param Request $request              Object containing all HTTP request data and behaviors
      * @param AbstractResponse $response    Object containing all HTTP response data and behaviors
-     * @access public
      */
     public function __construct(Request $request = null, AbstractResponse $response = null)
     {
@@ -102,7 +69,6 @@ class ServiceProvider
      *
      * @param Request $request              Object containing all HTTP request data and behaviors
      * @param AbstractResponse $response    Object containing all HTTP response data and behaviors
-     * @access public
      * @return ServiceProvider
      */
     public function bind(Request $request = null, AbstractResponse $response = null)
@@ -117,7 +83,6 @@ class ServiceProvider
     /**
      * Returns the shared data collection object
      *
-     * @access public
      * @return \Router\DataCollection\DataCollection
      */
     public function sharedData()
@@ -130,7 +95,6 @@ class ServiceProvider
      *
      * This will start a session if the current session id is null
      *
-     * @access public
      * @return string|false
      */
     public function startSession()
@@ -151,7 +115,6 @@ class ServiceProvider
      * @param string $msg       The message to flash
      * @param string $type      The flash message type
      * @param array $params     Optional params to be parsed by markdown
-     * @access public
      * @return void
      */
     public function flash($msg, $type = 'info', $params = null)
@@ -173,7 +136,6 @@ class ServiceProvider
      * Returns and clears all flashes of optional $type
      *
      * @param string $type  The name of the flash message type
-     * @access public
      * @return array
      */
     public function flashes($type = null)
@@ -205,8 +167,6 @@ class ServiceProvider
      *
      * @param string $str   The text string to parse
      * @param array $args   Optional arguments to be parsed by markdown
-     * @static
-     * @access public
      * @return string
      */
     public static function markdown($str, $args = null)
@@ -247,8 +207,6 @@ class ServiceProvider
      *
      * @param string $str   The string to escape
      * @param int $flags    A bitmask of `htmlentities()` compatible flags
-     * @static
-     * @access public
      * @return string
      */
     public static function escape($str, $flags = ENT_QUOTES)
@@ -259,7 +217,6 @@ class ServiceProvider
     /**
      * Redirects the request to the current URL
      *
-     * @access public
      * @return ServiceProvider
      */
     public function refresh()
@@ -274,7 +231,6 @@ class ServiceProvider
     /**
      * Redirects the request back to the referrer
      *
-     * @access public
      * @return ServiceProvider
      */
     public function back()
@@ -297,7 +253,6 @@ class ServiceProvider
      * Calling with an argument, however, sets the layout to what was provided by the argument.
      *
      * @param string $layout    The layout of the view
-     * @access public
      * @return string|ServiceProvider
      */
     public function layout($layout = null)
@@ -314,7 +269,6 @@ class ServiceProvider
     /**
      * Renders the current view
      *
-     * @access public
      * @return void
      */
     public function yieldView()
@@ -327,7 +281,6 @@ class ServiceProvider
      *
      * @param string $view  The view to render
      * @param array $data   The data to render in the view
-     * @access public
      * @return void
      */
     public function render($view, array $data = array())
@@ -359,7 +312,6 @@ class ServiceProvider
      *
      * @param string $view  The view to render
      * @param array $data   The data to render in the view
-     * @access public
      * @return void
      */
     public function partial($view, array $data = array())
@@ -375,7 +327,6 @@ class ServiceProvider
      *
      * @param string $method        The name of the validator method
      * @param callable $callback    The callback to perform on validation
-     * @access public
      * @return void
      */
     public function addValidator($method, $callback)
@@ -388,7 +339,6 @@ class ServiceProvider
      *
      * @param string $string    The string to validate
      * @param string $err       The custom exception message to throw
-     * @access public
      * @return Validator
      */
     public function validate($string, $err = null)
@@ -401,7 +351,6 @@ class ServiceProvider
      *
      * @param string $param     The name of the parameter to validate
      * @param string $err       The custom exception message to throw
-     * @access public
      * @return Validator
      */
     public function validateParam($param, $err = null)
@@ -417,7 +366,6 @@ class ServiceProvider
      * from this instance while treating it as an instance property
      *
      * @param string $key     The name of the shared data
-     * @access public
      * @return boolean
      */
     public function __isset($key)
@@ -432,7 +380,6 @@ class ServiceProvider
      * while treating it as an instance property
      *
      * @param string $key     The name of the shared data
-     * @access public
      * @return string
      */
     public function __get($key)
@@ -448,7 +395,6 @@ class ServiceProvider
      *
      * @param string $key     The name of the shared data
      * @param mixed $value      The value of the shared data
-     * @access public
      * @return void
      */
     public function __set($key, $value)
@@ -463,7 +409,6 @@ class ServiceProvider
      * while treating it as an instance property
      *
      * @param string $key     The name of the shared data
-     * @access public
      * @return void
      */
     public function __unset($key)

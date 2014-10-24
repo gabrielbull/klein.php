@@ -1,43 +1,13 @@
 <?php
-/**
- * Router (klein.php) - A lightning fast router for PHP
- *
- * @author      Chris O'Hara <cohara87@gmail.com>
- * @author      Trevor Suarez (Rican7) (contributor and v2 refactorer)
- * @copyright   (c) Chris O'Hara
- * @link        https://github.com/chriso/klein.php
- * @license     MIT
- */
-
 namespace Router\DataCollection;
 
-/**
- * ServerDataCollection
- *
- * A DataCollection for "$_SERVER" like data
- *
- * Look familiar?
- *
- * Inspired by @fabpot's Symfony 2's HttpFoundation
- * @link https://github.com/symfony/HttpFoundation/blob/master/ServerBag.php
- *
- * @uses DataCollection
- * @package     Router\DataCollection
- */
 class ServerDataCollection extends DataCollection
 {
-
-    /**
-     * Class properties
-     */
-
     /**
      * The prefix of HTTP headers normally
      * stored in the Server data
      *
-     * @static
      * @var string
-     * @access protected
      */
     protected static $http_header_prefix = 'HTTP_';
 
@@ -45,9 +15,7 @@ class ServerDataCollection extends DataCollection
      * The list of HTTP headers that for some
      * reason aren't prefixed in PHP...
      *
-     * @static
      * @var string
-     * @access protected
      */
     protected static $http_nonprefixed_headers = array(
         'CONTENT_LENGTH',
@@ -56,17 +24,12 @@ class ServerDataCollection extends DataCollection
     );
 
 
-    /**
-     * Methods
-     */
 
     /**
      * Quickly check if a string has a passed prefix
      *
      * @param string $string    The string to check
      * @param string $prefix    The prefix to test
-     * @static
-     * @access public
      * @return boolean
      */
     public static function hasPrefix($string, $prefix)
@@ -84,7 +47,6 @@ class ServerDataCollection extends DataCollection
      * PHP is weird... it puts all of the HTTP request
      * headers in the $_SERVER array. This handles that
      *
-     * @access public
      * @return array
      */
     public function getHeaders()

@@ -1,34 +1,15 @@
 <?php
-/**
- * Router (klein.php) - A lightning fast router for PHP
- *
- * @author      Chris O'Hara <cohara87@gmail.com>
- * @author      Trevor Suarez (Rican7) (contributor and v2 refactorer)
- * @copyright   (c) Chris O'Hara
- * @link        https://github.com/chriso/klein.php
- * @license     MIT
- */
-
 namespace Router\Tests\DataCollection;
 
-use \Router\Tests\AbstractKleinTest;
-use \Router\DataCollection\HeaderDataCollection;
+use Router\Tests\AbstractKleinTest;
+use Router\DataCollection\HeaderDataCollection;
 
-/**
- * HeaderDataCollectionTest
- *
- * @uses AbstractKleinTest
- * @package Router\Tests\DataCollection
- */
 class HeaderDataCollectionTest extends AbstractKleinTest
 {
-
     /**
      * Non existent key in the sample data
      *
-     * @static
      * @var string
-     * @access protected
      */
     protected static $nonexistent_key = 'non-standard-header';
 
@@ -42,7 +23,6 @@ class HeaderDataCollectionTest extends AbstractKleinTest
      * have any keys that match the "nonexistent_key"
      *
      * @param array $sample_data
-     * @access protected
      * @return void
      */
     protected function prepareSampleData(&$sample_data)
@@ -61,7 +41,6 @@ class HeaderDataCollectionTest extends AbstractKleinTest
     /**
      * Sample data provider
      *
-     * @access public
      * @return array
      */
     public function sampleDataProvider()

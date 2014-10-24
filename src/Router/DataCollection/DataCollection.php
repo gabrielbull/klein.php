@@ -1,60 +1,26 @@
 <?php
-/**
- * Router (klein.php) - A lightning fast router for PHP
- *
- * @author      Chris O'Hara <cohara87@gmail.com>
- * @author      Trevor Suarez (Rican7) (contributor and v2 refactorer)
- * @copyright   (c) Chris O'Hara
- * @link        https://github.com/chriso/klein.php
- * @license     MIT
- */
-
 namespace Router\DataCollection;
 
-use \IteratorAggregate;
-use \ArrayAccess;
-use \Countable;
-use \ArrayIterator;
+use IteratorAggregate;
+use ArrayAccess;
+use Countable;
+use ArrayIterator;
 
-/**
- * DataCollection
- *
- * A generic collection class to contain array-like data, specifically
- * designed to work with HTTP data (request params, session data, etc)
- *
- * Inspired by @fabpot's Symfony 2's HttpFoundation
- * @link https://github.com/symfony/HttpFoundation/blob/master/ParameterBag.php
- *
- * @uses        IteratorAggregate
- * @uses        ArrayAccess
- * @uses        Countable
- * @package     Router\DataCollection
- */
 class DataCollection implements IteratorAggregate, ArrayAccess, Countable
 {
-
-    /**
-     * Class properties
-     */
-
     /**
      * Collection of data attributes
      *
      * @var array
-     * @access protected
      */
     protected $attributes = array();
 
 
-    /**
-     * Methods
-     */
 
     /**
      * Constructor
      *
      * @param array $attributes The data attributes of this collection
-     * @access public
      */
     public function __construct(array $attributes = array())
     {
@@ -70,7 +36,6 @@ class DataCollection implements IteratorAggregate, ArrayAccess, Countable
      * @param array $mask               The parameter mask array
      * @param boolean $fill_with_nulls  Whether or not to fill the returned array with
      *  values to match the given mask, even if they don't exist in the collection
-     * @access public
      * @return array
      */
     public function keys($mask = null, $fill_with_nulls = true)
@@ -113,7 +78,6 @@ class DataCollection implements IteratorAggregate, ArrayAccess, Countable
      * @param array $mask               The parameter mask array
      * @param boolean $fill_with_nulls  Whether or not to fill the returned array with
      *  values to match the given mask, even if they don't exist in the collection
-     * @access public
      * @return array
      */
     public function all($mask = null, $fill_with_nulls = true)
@@ -154,7 +118,6 @@ class DataCollection implements IteratorAggregate, ArrayAccess, Countable
      *
      * @param string $key           The name of the parameter to return
      * @param mixed  $default_val   The default value of the parameter if it contains no value
-     * @access public
      * @return mixed
      */
     public function get($key, $default_val = null)
@@ -171,7 +134,6 @@ class DataCollection implements IteratorAggregate, ArrayAccess, Countable
      *
      * @param string $key   The name of the parameter to set
      * @param mixed  $value The value of the parameter to set
-     * @access public
      * @return DataCollection
      */
     public function set($key, $value)
@@ -185,7 +147,6 @@ class DataCollection implements IteratorAggregate, ArrayAccess, Countable
      * Replace the collection's attributes
      *
      * @param array $attributes The attributes to replace the collection's with
-     * @access public
      * @return DataCollection
      */
     public function replace(array $attributes = array())
@@ -204,7 +165,6 @@ class DataCollection implements IteratorAggregate, ArrayAccess, Countable
      *
      * @param array $attributes The attributes to merge into the collection
      * @param boolean $hard     Whether or not to make the merge "hard"
-     * @access public
      * @return DataCollection
      */
     public function merge(array $attributes = array(), $hard = false)
@@ -232,7 +192,6 @@ class DataCollection implements IteratorAggregate, ArrayAccess, Countable
      * See if an attribute exists in the collection
      *
      * @param string $key   The name of the parameter
-     * @access public
      * @return boolean
      */
     public function exists($key)
@@ -245,7 +204,6 @@ class DataCollection implements IteratorAggregate, ArrayAccess, Countable
      * Remove an attribute from the collection
      *
      * @param string $key   The name of the parameter
-     * @access public
      * @return void
      */
     public function remove($key)
@@ -258,7 +216,6 @@ class DataCollection implements IteratorAggregate, ArrayAccess, Countable
      *
      * Semantic alias of a no-argument `$this->replace` call
      *
-     * @access public
      * @return DataCollection
      */
     public function clear()
@@ -269,7 +226,6 @@ class DataCollection implements IteratorAggregate, ArrayAccess, Countable
     /**
      * Check if the collection is empty
      *
-     * @access public
      * @return boolean
      */
     public function isEmpty()
@@ -281,7 +237,6 @@ class DataCollection implements IteratorAggregate, ArrayAccess, Countable
      * A quick convenience method to get an empty clone of the
      * collection. Great for dependency injection. :)
      *
-     * @access public
      * @return DataCollection
      */
     public function cloneEmpty()
@@ -305,7 +260,6 @@ class DataCollection implements IteratorAggregate, ArrayAccess, Countable
      *
      * @see get()
      * @param string $key   The name of the parameter to return
-     * @access public
      * @return mixed
      */
     public function __get($key)
@@ -322,7 +276,6 @@ class DataCollection implements IteratorAggregate, ArrayAccess, Countable
      * @see set()
      * @param string $key   The name of the parameter to set
      * @param mixed  $value The value of the parameter to set
-     * @access public
      * @return void
      */
     public function __set($key, $value)
@@ -338,7 +291,6 @@ class DataCollection implements IteratorAggregate, ArrayAccess, Countable
      *
      * @see exists()
      * @param string $key   The name of the parameter
-     * @access public
      * @return boolean
      */
     public function __isset($key)
@@ -354,7 +306,6 @@ class DataCollection implements IteratorAggregate, ArrayAccess, Countable
      *
      * @see remove()
      * @param string $key   The name of the parameter
-     * @access public
      * @return void
      */
     public function __unset($key)
@@ -373,7 +324,6 @@ class DataCollection implements IteratorAggregate, ArrayAccess, Countable
      * IteratorAggregate interface required method
      *
      * @see \IteratorAggregate::getIterator()
-     * @access public
      * @return ArrayIterator
      */
     public function getIterator()
@@ -389,7 +339,6 @@ class DataCollection implements IteratorAggregate, ArrayAccess, Countable
      * @see \ArrayAccess::offsetGet()
      * @see get()
      * @param string $key   The name of the parameter to return
-     * @access public
      * @return mixed
      */
     public function offsetGet($key)
@@ -406,7 +355,6 @@ class DataCollection implements IteratorAggregate, ArrayAccess, Countable
      * @see set()
      * @param string $key   The name of the parameter to set
      * @param mixed  $value The value of the parameter to set
-     * @access public
      * @return void
      */
     public function offsetSet($key, $value)
@@ -422,7 +370,6 @@ class DataCollection implements IteratorAggregate, ArrayAccess, Countable
      * @see \ArrayAccess::offsetExists()
      * @see exists()
      * @param string $key   The name of the parameter
-     * @access public
      * @return boolean
      */
     public function offsetExists($key)
@@ -438,7 +385,6 @@ class DataCollection implements IteratorAggregate, ArrayAccess, Countable
      * @see \ArrayAccess::offsetUnset()
      * @see remove()
      * @param string $key   The name of the parameter
-     * @access public
      * @return void
      */
     public function offsetUnset($key)
@@ -453,7 +399,6 @@ class DataCollection implements IteratorAggregate, ArrayAccess, Countable
      * to simply count the number of attributes in the collection.
      *
      * @see \Countable::count()
-     * @access public
      * @return int
      */
     public function count()

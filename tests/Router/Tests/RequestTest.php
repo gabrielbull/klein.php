@@ -1,28 +1,11 @@
 <?php
-/**
- * Router (klein.php) - A lightning fast router for PHP
- *
- * @author      Chris O'Hara <cohara87@gmail.com>
- * @author      Trevor Suarez (Rican7) (contributor and v2 refactorer)
- * @copyright   (c) Chris O'Hara
- * @link        https://github.com/chriso/klein.php
- * @license     MIT
- */
-
 namespace Router\Tests;
 
-use \Router\Request;
-use \Router\Tests\Mocks\MockRequestFactory;
+use Router\Request;
+use Router\Tests\Mocks\MockRequestFactory;
 
-/**
- * RequestTest
- * 
- * @uses AbstractKleinTest
- * @package Router\Tests
- */
 class RequestTest extends AbstractKleinTest
 {
-
     public function testConstructorAndGetters()
     {
         // Test data

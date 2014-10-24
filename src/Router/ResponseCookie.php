@@ -1,35 +1,12 @@
 <?php
-/**
- * Router (klein.php) - A lightning fast router for PHP
- *
- * @author      Chris O'Hara <cohara87@gmail.com>
- * @author      Trevor Suarez (Rican7) (contributor and v2 refactorer)
- * @copyright   (c) Chris O'Hara
- * @link        https://github.com/chriso/klein.php
- * @license     MIT
- */
-
 namespace Router;
 
-/**
- * ResponseCookie
- *
- * Class to represent an HTTP response cookie
- *
- * @package     Router
- */
 class ResponseCookie
 {
-
-    /**
-     * Class properties
-     */
-
     /**
      * The name of the cookie
      *
      * @var string
-     * @access protected
      */
     protected $name;
 
@@ -37,7 +14,6 @@ class ResponseCookie
      * The string "value" of the cookie
      *
      * @var string
-     * @access protected
      */
     protected $value;
 
@@ -47,7 +23,6 @@ class ResponseCookie
      * Represented by a Unix "Timestamp"
      *
      * @var int
-     * @access protected
      */
     protected $expire;
 
@@ -56,7 +31,6 @@ class ResponseCookie
      * be available on
      *
      * @var string
-     * @access protected
      */
     protected $path;
 
@@ -64,7 +38,6 @@ class ResponseCookie
      * The domain that the cookie is available to
      *
      * @var string
-     * @access protected
      */
     protected $domain;
 
@@ -73,7 +46,6 @@ class ResponseCookie
      * over an HTTPS connection or not
      *
      * @var boolean
-     * @access protected
      */
     protected $secure;
 
@@ -83,14 +55,10 @@ class ResponseCookie
      * client-side scripting languages like JavaScript)
      *
      * @var boolean
-     * @access protected
      */
     protected $http_only;
 
 
-    /**
-     * Methods
-     */
 
     /**
      * Constructor
@@ -102,7 +70,6 @@ class ResponseCookie
      * @param string  $domain       The domain of which to restrict the cookie
      * @param boolean $secure       Flag of whether the cookie should only be sent over a HTTPS connection
      * @param boolean $http_only    Flag of whether the cookie should only be accessible over the HTTP protocol
-     * @access public
      */
     public function __construct(
         $name,
@@ -126,7 +93,6 @@ class ResponseCookie
     /**
      * Gets the cookie's name
      *
-     * @access public
      * @return string
      */
     public function getName()
@@ -138,7 +104,6 @@ class ResponseCookie
      * Sets the cookie's name
      *
      * @param string $name
-     * @access public
      * @return ResponseCookie
      */
     public function setName($name)
@@ -151,7 +116,6 @@ class ResponseCookie
     /**
      * Gets the cookie's value
      *
-     * @access public
      * @return string
      */
     public function getValue()
@@ -163,7 +127,6 @@ class ResponseCookie
      * Sets the cookie's value
      *
      * @param string $value
-     * @access public
      * @return ResponseCookie
      */
     public function setValue($value)
@@ -180,7 +143,6 @@ class ResponseCookie
     /**
      * Gets the cookie's expire time
      *
-     * @access public
      * @return int
      */
     public function getExpire()
@@ -195,7 +157,6 @@ class ResponseCookie
      * representing a Unix timestamp
      *
      * @param int $expire
-     * @access public
      * @return ResponseCookie
      */
     public function setExpire($expire)
@@ -212,7 +173,6 @@ class ResponseCookie
     /**
      * Gets the cookie's path
      *
-     * @access public
      * @return string
      */
     public function getPath()
@@ -224,7 +184,6 @@ class ResponseCookie
      * Sets the cookie's path
      *
      * @param string $path
-     * @access public
      * @return ResponseCookie
      */
     public function setPath($path)
@@ -241,7 +200,6 @@ class ResponseCookie
     /**
      * Gets the cookie's domain
      *
-     * @access public
      * @return string
      */
     public function getDomain()
@@ -253,7 +211,6 @@ class ResponseCookie
      * Sets the cookie's domain
      *
      * @param string $domain
-     * @access public
      * @return ResponseCookie
      */
     public function setDomain($domain)
@@ -270,7 +227,6 @@ class ResponseCookie
     /**
      * Gets the cookie's secure only flag
      *
-     * @access public
      * @return boolean
      */
     public function getSecure()
@@ -282,7 +238,6 @@ class ResponseCookie
      * Sets the cookie's secure only flag
      *
      * @param boolean $secure
-     * @access public
      * @return ResponseCookie
      */
     public function setSecure($secure)
@@ -295,7 +250,6 @@ class ResponseCookie
     /**
      * Gets the cookie's HTTP only flag
      *
-     * @access public
      * @return boolean
      */
     public function getHttpOnly()
@@ -307,7 +261,6 @@ class ResponseCookie
      * Sets the cookie's HTTP only flag
      *
      * @param boolean $http_only
-     * @access public
      * @return ResponseCookie
      */
     public function setHttpOnly($http_only)

@@ -1,28 +1,10 @@
 <?php
-/**
- * Router (klein.php) - A lightning fast router for PHP
- *
- * @author      Chris O'Hara <cohara87@gmail.com>
- * @author      Trevor Suarez (Rican7) (contributor and v2 refactorer)
- * @copyright   (c) Chris O'Hara
- * @link        https://github.com/chriso/klein.php
- * @license     MIT
- */
-
 namespace Router\Tests;
 
+use Router\HttpStatus;
 
-use \Router\HttpStatus;
-
-/**
- * HttpStatusTests 
- * 
- * @uses AbstractKleinTest
- * @package Router\Tests
- */
 class HttpStatusTests extends AbstractKleinTest
 {
-
     public function testStaticMessageFromCode()
     {
         // Set our test data

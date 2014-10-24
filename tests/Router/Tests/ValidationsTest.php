@@ -1,32 +1,15 @@
 <?php
-/**
- * Router (klein.php) - A lightning fast router for PHP
- *
- * @author      Chris O'Hara <cohara87@gmail.com>
- * @author      Trevor Suarez (Rican7) (contributor and v2 refactorer)
- * @copyright   (c) Chris O'Hara
- * @link        https://github.com/chriso/klein.php
- * @license     MIT
- */
-
 namespace Router\Tests;
 
 use BadMethodCallException;
-use \Router\Klein;
-use \Router\Tests\Mocks\MockRequestFactory;
-use \Router\Validator;
-use \Router\Request;
-use \Router\Response;
+use Router\Klein;
+use Router\Tests\Mocks\MockRequestFactory;
+use Router\Validator;
+use Router\Request;
+use Router\Response;
 
-/**
- * ValidationsTest 
- * 
- * @uses AbstractKleinTest
- * @package Router\Tests
- */
 class ValidationsTest extends AbstractKleinTest
 {
-
     public function setUp()
     {
         parent::setUp();

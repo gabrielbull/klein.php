@@ -1,36 +1,17 @@
 <?php
-/**
- * Router (klein.php) - A lightning fast router for PHP
- *
- * @author      Chris O'Hara <cohara87@gmail.com>
- * @author      Trevor Suarez (Rican7) (contributor and v2 refactorer)
- * @copyright   (c) Chris O'Hara
- * @link        https://github.com/chriso/klein.php
- * @license     MIT
- */
-
 namespace Router\Tests;
 
+use Router\Klein;
+use Router\Response;
+use Router\HttpStatus;
+use Router\DataCollection\HeaderDataCollection;
+use Router\DataCollection\ResponseCookieDataCollection;
+use Router\Exceptions\LockedResponseException;
+use Router\ResponseCookie;
+use Router\Tests\Mocks\MockRequestFactory;
 
-use \Router\Klein;
-use \Router\Response;
-use \Router\HttpStatus;
-use \Router\DataCollection\HeaderDataCollection;
-use \Router\DataCollection\ResponseCookieDataCollection;
-use \Router\Exceptions\LockedResponseException;
-use \Router\ResponseCookie;
-
-use \Router\Tests\Mocks\MockRequestFactory;
-
-/**
- * ResponsesTest 
- * 
- * @uses AbstractKleinTest
- * @package Router\Tests
- */
 class ResponsesTest extends AbstractKleinTest
 {
-
     public function testProtocolVersionGetSet()
     {
         $version_reg_ex = '/^[0-9]\.[0-9]$/';

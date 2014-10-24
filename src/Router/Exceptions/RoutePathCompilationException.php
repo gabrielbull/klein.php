@@ -1,34 +1,12 @@
 <?php
-/**
- * Router (klein.php) - A lightning fast router for PHP
- *
- * @author      Chris O'Hara <cohara87@gmail.com>
- * @author      Trevor Suarez (Rican7) (contributor and v2 refactorer)
- * @copyright   (c) Chris O'Hara
- * @link        https://github.com/chriso/klein.php
- * @license     MIT
- */
-
 namespace Router\Exceptions;
 
 use Exception;
 use Router\Route;
 use RuntimeException;
 
-/**
- * RoutePathCompilationException
- *
- * Exception used for when a route's path fails to compile
- * 
- * @uses       Exception
- * @package    Router\Exceptions
- */
 class RoutePathCompilationException extends RuntimeException implements KleinExceptionInterface
 {
-
-    /**
-     * Constants
-     */
 
     /**
      * The exception message format
@@ -45,22 +23,16 @@ class RoutePathCompilationException extends RuntimeException implements KleinExc
     const FAILURE_MESSAGE_TITLE_FORMAT = 'Failed with message: "%s"';
 
 
-    /**
-     * Properties
-     */
+
 
     /**
      * The route that failed to compile
      *
      * @var Route
-     * @access protected
      */
     protected $route;
 
 
-    /**
-     * Methods
-     */
 
     /**
      * Create a RoutePathCompilationException from a route
@@ -68,8 +40,6 @@ class RoutePathCompilationException extends RuntimeException implements KleinExc
      *
      * @param Route $route          The route that failed to compile
      * @param Exception $previous   The previous exception
-     * @static
-     * @access public
      * @return RoutePathCompilationException
      */
     public static function createFromRoute(Route $route, Exception $previous = null)

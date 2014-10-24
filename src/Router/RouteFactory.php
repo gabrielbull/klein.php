@@ -1,30 +1,8 @@
 <?php
-/**
- * Router (klein.php) - A lightning fast router for PHP
- *
- * @author      Chris O'Hara <cohara87@gmail.com>
- * @author      Trevor Suarez (Rican7) (contributor and v2 refactorer)
- * @copyright   (c) Chris O'Hara
- * @link        https://github.com/chriso/klein.php
- * @license     MIT
- */
-
 namespace Router;
 
-/**
- * RouteFactory
- *
- * The default implementation of the AbstractRouteFactory
- *
- * @uses AbstractRouteFactory
- * @package     Router
- */
 class RouteFactory extends AbstractRouteFactory
 {
-
-    /**
-     * Constants
-     */
 
     /**
      * The value given to path's when they are entered as null values
@@ -34,15 +12,11 @@ class RouteFactory extends AbstractRouteFactory
     const NULL_PATH_VALUE = '*';
 
 
-    /**
-     * Methods
-     */
 
     /**
      * Check if the path is null or equal to our match-all, null-like value
      *
      * @param mixed $path
-     * @access protected
      * @return boolean
      */
     protected function pathIsNull($path)
@@ -55,7 +29,6 @@ class RouteFactory extends AbstractRouteFactory
      * as a match when counting total matches
      *
      * @param string $path
-     * @access protected
      * @return boolean
      */
     protected function shouldPathStringCauseRouteMatch($path)
@@ -72,7 +45,6 @@ class RouteFactory extends AbstractRouteFactory
      * It also adds the namespace in a specific part, based on the style of expression
      *
      * @param string $path
-     * @access protected
      * @return string
      */
     protected function preprocessPathString($path)
@@ -126,8 +98,6 @@ class RouteFactory extends AbstractRouteFactory
      * @param string|array $method  HTTP Method to match
      * @param boolean $count_match  Whether or not to count the route as a match when counting total matches
      * @param string $name          The name of the route
-     * @static
-     * @access public
      * @return Route
      */
     public function build($callback, $path = null, $method = null, $count_match = true, $name = null)

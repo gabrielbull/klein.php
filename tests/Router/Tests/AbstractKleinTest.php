@@ -1,41 +1,19 @@
 <?php
-/**
- * Router (klein.php) - A lightning fast router for PHP
- *
- * @author      Chris O'Hara <cohara87@gmail.com>
- * @author      Trevor Suarez (Rican7) (contributor and v2 refactorer)
- * @copyright   (c) Chris O'Hara
- * @link        https://github.com/chriso/klein.php
- * @license     MIT
- */
-
 namespace Router\Tests;
 
-
-use \PHPUnit_Framework_TestCase;
-use \Router\Klein;
+use PHPUnit_Framework_TestCase;
+use Router\Klein;
 use Router\Request;
 use Router\Response;
-use \Router\Tests\Mocks\HeadersNoOp;
+use Router\Tests\Mocks\HeadersNoOp;
 
-/**
- * AbstractKleinTest
- *
- * Base test class for PHP Unit testing
- * 
- * @uses PHPUnit_Framework_TestCase
- * @abstract
- * @package Router\Tests
- */
 abstract class AbstractKleinTest extends PHPUnit_Framework_TestCase
 {
-
     /**
      * The automatically created test Router instance
      * (for easy testing and less boilerplate)
      * 
      * @var \Router\Klein;
-     * @access protected
      */
     protected $klein_app;
 
@@ -44,7 +22,6 @@ abstract class AbstractKleinTest extends PHPUnit_Framework_TestCase
      * Setup our test
      * (runs before each test)
      * 
-     * @access protected
      * @return void
      */
     protected function setUp()
@@ -62,7 +39,6 @@ abstract class AbstractKleinTest extends PHPUnit_Framework_TestCase
      *
      * @param Request $request      Custom Router "Request" object
      * @param Response $response    Custom Router "Response" object
-     * @access protected
      * @return mixed The output of the dispatch call
      */
     protected function dispatchAndReturnOutput($request = null, $response = null)
@@ -82,7 +58,6 @@ abstract class AbstractKleinTest extends PHPUnit_Framework_TestCase
      * @param mixed $expected The expected output
      * @param callable $callback The callable function
      * @param string $message (optional) A message to display if the assertion fails
-     * @access protected
      * @return void
      */
     protected function assertOutputSame($expected, $callback, $message = '')
@@ -106,7 +81,6 @@ abstract class AbstractKleinTest extends PHPUnit_Framework_TestCase
      * Loads externally defined routes under the filename's namespace
      * 
      * @param Klein $app_context The application context to attach the routes to
-     * @access protected
      * @return array
      */
     protected function loadExternalRoutes(Klein $app_context = null)

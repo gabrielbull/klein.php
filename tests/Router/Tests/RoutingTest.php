@@ -1,16 +1,5 @@
 <?php
-/**
- * Router (klein.php) - A lightning fast router for PHP
- *
- * @author      Chris O'Hara <cohara87@gmail.com>
- * @author      Trevor Suarez (Rican7) (contributor and v2 refactorer)
- * @copyright   (c) Chris O'Hara
- * @link        https://github.com/chriso/klein.php
- * @license     MIT
- */
-
 namespace Router\Tests;
-
 
 use Router\App;
 use Router\DataCollection\RouteCollection;
@@ -26,15 +15,8 @@ use Router\Tests\Mocks\HeadersEcho;
 use Router\Tests\Mocks\HeadersSave;
 use Router\Tests\Mocks\MockRequestFactory;
 
-/**
- * RoutingTest
- * 
- * @uses AbstractKleinTest
- * @package Router\Tests
- */
 class RoutingTest extends AbstractKleinTest
 {
-
     public function testBasic()
     {
         $this->expectOutputString('x');

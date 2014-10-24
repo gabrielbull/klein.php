@@ -1,29 +1,12 @@
 <?php
-/**
- * Router (klein.php) - A lightning fast router for PHP
- *
- * @author      Chris O'Hara <cohara87@gmail.com>
- * @author      Trevor Suarez (Rican7) (contributor and v2 refactorer)
- * @copyright   (c) Chris O'Hara
- * @link        https://github.com/chriso/klein.php
- * @license     MIT
- */
-
 namespace Router\Tests;
 
 use InvalidArgumentException;
-use \Router\Klein;
-use \Router\Route;
+use Router\Klein;
+use Router\Route;
 
-/**
- * RouteTest
- *
- * @uses AbstractKleinTest
- * @package Router\Tests
- */
 class RouteTest extends AbstractKleinTest
 {
-
     protected function getTestCallable()
     {
         return function () {

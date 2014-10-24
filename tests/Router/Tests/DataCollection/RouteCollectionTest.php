@@ -1,37 +1,15 @@
 <?php
-/**
- * Router (klein.php) - A lightning fast router for PHP
- *
- * @author      Chris O'Hara <cohara87@gmail.com>
- * @author      Trevor Suarez (Rican7) (contributor and v2 refactorer)
- * @copyright   (c) Chris O'Hara
- * @link        https://github.com/chriso/klein.php
- * @license     MIT
- */
-
 namespace Router\Tests\DataCollection;
 
-use \Router\Tests\AbstractKleinTest;
-use \Router\DataCollection\RouteCollection;
-use \Router\Route;
+use Router\Tests\AbstractKleinTest;
+use Router\DataCollection\RouteCollection;
+use Router\Route;
 
-/**
- * RouteCollectionTest
- *
- * @uses AbstractKleinTest
- * @package Router\Tests\DataCollection
- */
 class RouteCollectionTest extends AbstractKleinTest
 {
-
-    /*
-     * Data Providers and Methods
-     */
-
     /**
      * Sample data provider
      *
-     * @access public
      * @return array
      */
     public function sampleDataProvider()

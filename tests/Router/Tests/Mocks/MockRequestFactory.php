@@ -1,29 +1,10 @@
 <?php
-/**
- * Router (klein.php) - A lightning fast router for PHP
- *
- * @author      Chris O'Hara <cohara87@gmail.com>
- * @author      Trevor Suarez (Rican7) (contributor and v2 refactorer)
- * @copyright   (c) Chris O'Hara
- * @link        https://github.com/chriso/klein.php
- * @license     MIT
- */
-
 namespace Router\Tests\Mocks;
 
-use \Router\Request;
+use Router\Request;
 
-/**
- * MockRequestFactory 
- *
- * Allow for the simple creation of mock requests
- * (great for testing... ;))
- *
- * @package Router\Tests\Mocks
- */
 class MockRequestFactory
 {
-
     /**
      * Create a new mock request
      *
@@ -34,8 +15,6 @@ class MockRequestFactory
      * @param array $server
      * @param array $files
      * @param string $body
-     * @static
-     * @access public
      * @return void
      */
     public static function create(
