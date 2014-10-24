@@ -6,7 +6,7 @@ use Router\DataCollection\RouteCollection;
 use Router\Exceptions\DispatchHaltedException;
 use Router\Exceptions\HttpException;
 use Router\Exceptions\RoutePathCompilationException;
-use Router\Klein;
+use Router\Router;
 use Router\Request;
 use Router\Response;
 use Router\Route;
@@ -82,14 +82,14 @@ class RoutingTest extends AbstractKleinTest
         $this->assertTrue($expected_objects['response'] instanceof Response);
         $this->assertTrue($expected_objects['service'] instanceof ServiceProvider);
         $this->assertTrue($expected_objects['app'] instanceof App);
-        $this->assertTrue($expected_objects['klein'] instanceof Klein);
+        $this->assertTrue($expected_objects['klein'] instanceof Router);
         $this->assertTrue($expected_objects['matched'] instanceof RouteCollection);
         $this->assertTrue(is_array($expected_objects['methods_matched']));
 
-        $this->assertSame($expected_objects['request'], $this->klein_app->request());
-        $this->assertSame($expected_objects['response'], $this->klein_app->response());
-        $this->assertSame($expected_objects['service'], $this->klein_app->service());
-        $this->assertSame($expected_objects['app'], $this->klein_app->app());
+        $this->assertSame($expected_objects['request'], $this->klein_app->getRequest());
+        $this->assertSame($expected_objects['response'], $this->klein_app->getResponse());
+        $this->assertSame($expected_objects['service'], $this->klein_app->getService());
+        $this->assertSame($expected_objects['app'], $this->klein_app->getApp());
         $this->assertSame($expected_objects['klein'], $this->klein_app);
     }
 
@@ -149,7 +149,7 @@ class RoutingTest extends AbstractKleinTest
         // Make sure our response body matches the concatenation of what we returned in each callback
         $this->assertSame(
             $expectedOutput['returned1'] . $expectedOutput['returned2'],
-            $this->klein_app->response()->body()
+            $this->klein_app->getResponse()->body()
         );
     }
 
@@ -167,7 +167,7 @@ class RoutingTest extends AbstractKleinTest
 
         $this->assertSame(
             'test output',
-            $this->klein_app->response()->body()
+            $this->klein_app->getResponse()->body()
         );
     }
 
@@ -189,7 +189,7 @@ class RoutingTest extends AbstractKleinTest
             }
         );
 
-        $output = $this->klein_app->dispatch(null, null, true, Klein::DISPATCH_CAPTURE_AND_RETURN);
+        $output = $this->klein_app->dispatch(null, null, true, Router::DISPATCH_CAPTURE_AND_RETURN);
 
         // Make sure nothing actually printed to the screen
         $this->expectOutputString('');
@@ -198,7 +198,7 @@ class RoutingTest extends AbstractKleinTest
         $this->assertSame($expectedOutput['echoed'], $output);
 
         // Make sure our response body matches what we returned
-        $this->assertSame($expectedOutput['returned'], $this->klein_app->response()->body());
+        $this->assertSame($expectedOutput['returned'], $this->klein_app->getResponse()->body());
     }
 
     public function testDispatchOutputReplaced()
@@ -219,13 +219,13 @@ class RoutingTest extends AbstractKleinTest
             }
         );
 
-        $this->klein_app->dispatch(null, null, false, Klein::DISPATCH_CAPTURE_AND_REPLACE);
+        $this->klein_app->dispatch(null, null, false, Router::DISPATCH_CAPTURE_AND_REPLACE);
 
         // Make sure nothing actually printed to the screen
         $this->expectOutputString('');
 
         // Make sure our response body matches what we echoed
-        $this->assertSame($expectedOutput['echoed'], $this->klein_app->response()->body());
+        $this->assertSame($expectedOutput['echoed'], $this->klein_app->getResponse()->body());
     }
 
     public function testDispatchOutputPrepended()
@@ -252,7 +252,7 @@ class RoutingTest extends AbstractKleinTest
             }
         );
 
-        $this->klein_app->dispatch(null, null, false, Klein::DISPATCH_CAPTURE_AND_PREPEND);
+        $this->klein_app->dispatch(null, null, false, Router::DISPATCH_CAPTURE_AND_PREPEND);
 
         // Make sure nothing actually printed to the screen
         $this->expectOutputString('');
@@ -260,7 +260,7 @@ class RoutingTest extends AbstractKleinTest
         // Make sure our response body matches what we echoed
         $this->assertSame(
             $expectedOutput['echoed'] . $expectedOutput['echoed2'] . $expectedOutput['returned'],
-            $this->klein_app->response()->body()
+            $this->klein_app->getResponse()->body()
         );
     }
 
@@ -288,7 +288,7 @@ class RoutingTest extends AbstractKleinTest
             }
         );
 
-        $this->klein_app->dispatch(null, null, false, Klein::DISPATCH_CAPTURE_AND_APPEND);
+        $this->klein_app->dispatch(null, null, false, Router::DISPATCH_CAPTURE_AND_APPEND);
 
         // Make sure nothing actually printed to the screen
         $this->expectOutputString('');
@@ -296,7 +296,7 @@ class RoutingTest extends AbstractKleinTest
         // Make sure our response body matches what we echoed
         $this->assertSame(
             $expectedOutput['returned'] . $expectedOutput['echoed'] . $expectedOutput['echoed2'],
-            $this->klein_app->response()->body()
+            $this->klein_app->getResponse()->body()
         );
     }
 
@@ -329,16 +329,16 @@ class RoutingTest extends AbstractKleinTest
             }
         );
 
-        $this->klein_app->dispatch(null, null, false, Klein::DISPATCH_CAPTURE_AND_RETURN);
+        $this->klein_app->dispatch(null, null, false, Router::DISPATCH_CAPTURE_AND_RETURN);
 
         // Make sure our response body and code match up
         $this->assertSame(
             $expected_body . $expected_append,
-            $this->klein_app->response()->body()
+            $this->klein_app->getResponse()->body()
         );
         $this->assertSame(
             $expected_code,
-            $this->klein_app->response()->code()
+            $this->klein_app->getResponse()->code()
         );
     }
 
@@ -551,7 +551,7 @@ class RoutingTest extends AbstractKleinTest
             MockRequestFactory::create('/foo')
         );
 
-        $this->assertSame(404, $this->klein_app->response()->code());
+        $this->assertSame(404, $this->klein_app->getResponse()->code());
     }
 
     public function testParamsBasic()
@@ -1230,8 +1230,8 @@ class RoutingTest extends AbstractKleinTest
             MockRequestFactory::create('/', 'DELETE')
         );
 
-        $this->assertEquals('405 Method Not Allowed', $this->klein_app->response()->status()->getFormattedString());
-        $this->assertEquals('GET, POST', $this->klein_app->response()->headers()->get('Allow'));
+        $this->assertEquals('405 Method Not Allowed', $this->klein_app->getResponse()->status()->getFormattedString());
+        $this->assertEquals('GET, POST', $this->klein_app->getResponse()->headers()->get('Allow'));
     }
 
     public function testNo405OnNonMatchRoutes()
@@ -1248,7 +1248,7 @@ class RoutingTest extends AbstractKleinTest
             MockRequestFactory::create('/', 'DELETE')
         );
 
-        $this->assertEquals(404, $this->klein_app->response()->code());
+        $this->assertEquals(404, $this->klein_app->getResponse()->code());
     }
 
     public function test405Routes()
@@ -1296,7 +1296,7 @@ class RoutingTest extends AbstractKleinTest
         $this->assertCount(2, $resultArray);
         $this->assertContains('GET', $resultArray);
         $this->assertContains('POST', $resultArray);
-        $this->assertSame(405, $this->klein_app->response()->code());
+        $this->assertSame(405, $this->klein_app->getResponse()->code());
     }
 
     public function test405ErrorHandler()
@@ -1337,7 +1337,7 @@ class RoutingTest extends AbstractKleinTest
         $this->assertCount(2, $resultArray);
         $this->assertContains('GET', $resultArray);
         $this->assertContains('POST', $resultArray);
-        $this->assertSame(405, $this->klein_app->response()->code());
+        $this->assertSame(405, $this->klein_app->getResponse()->code());
     }
 
     public function testOptionsDefaultRequest()
@@ -1359,8 +1359,8 @@ class RoutingTest extends AbstractKleinTest
             MockRequestFactory::create('/', 'OPTIONS')
         );
 
-        $this->assertEquals('200 OK', $this->klein_app->response()->status()->getFormattedString());
-        $this->assertEquals('GET, POST', $this->klein_app->response()->headers()->get('Allow'));
+        $this->assertEquals('200 OK', $this->klein_app->getResponse()->status()->getFormattedString());
+        $this->assertEquals('GET, POST', $this->klein_app->getResponse()->headers()->get('Allow'));
     }
 
     public function testOptionsRoutes()
@@ -1407,10 +1407,10 @@ class RoutingTest extends AbstractKleinTest
 
 
         // Assert headers were passed
-        $this->assertEquals('GET, POST', $this->klein_app->response()->headers()->get('Allow'));
+        $this->assertEquals('GET, POST', $this->klein_app->getResponse()->headers()->get('Allow'));
 
         foreach ($access_control_headers as $header) {
-            $this->assertEquals($header['val'], $this->klein_app->response()->headers()->get($header['key']));
+            $this->assertEquals($header['val'], $this->klein_app->getResponse()->headers()->get($header['key']));
         }
     }
 
@@ -1460,7 +1460,7 @@ class RoutingTest extends AbstractKleinTest
 
         // Assert headers were passed
         foreach ($expected_headers as $header) {
-            $this->assertEquals($header['val'], $this->klein_app->response()->headers()->get($header['key']));
+            $this->assertEquals($header['val'], $this->klein_app->getResponse()->headers()->get($header['key']));
         }
     }
 
@@ -1756,7 +1756,7 @@ class RoutingTest extends AbstractKleinTest
 
         $this->klein_app->dispatch();
 
-        $this->assertSame(404, $this->klein_app->response()->code());
+        $this->assertSame(404, $this->klein_app->getResponse()->code());
     }
 
     public function testDispatchAbortWithCode()
@@ -1782,7 +1782,7 @@ class RoutingTest extends AbstractKleinTest
 
         $this->klein_app->dispatch();
 
-        $this->assertSame(404, $this->klein_app->response()->code());
+        $this->assertSame(404, $this->klein_app->getResponse()->code());
     }
 
     public function testDispatchAbortCallsHttpError()
@@ -1816,7 +1816,7 @@ class RoutingTest extends AbstractKleinTest
 
         $this->klein_app->dispatch();
 
-        $this->assertSame($test_code, $this->klein_app->response()->code());
+        $this->assertSame($test_code, $this->klein_app->getResponse()->code());
     }
 
     /**
@@ -1837,7 +1837,7 @@ class RoutingTest extends AbstractKleinTest
 
         $this->klein_app->dispatch();
 
-        $this->assertSame(404, $this->klein_app->response()->code());
+        $this->assertSame(404, $this->klein_app->getResponse()->code());
     }
 
     public function testThrowHttpExceptionHandledProperly()
@@ -1855,7 +1855,7 @@ class RoutingTest extends AbstractKleinTest
 
         $this->klein_app->dispatch();
 
-        $this->assertSame(400, $this->klein_app->response()->code());
+        $this->assertSame(400, $this->klein_app->getResponse()->code());
     }
 
     public function testHttpExceptionStopsRouteMatching()
@@ -1930,9 +1930,9 @@ class RoutingTest extends AbstractKleinTest
             MockRequestFactory::create('/', 'HEAD')
         );
 
-        $this->assertTrue($this->klein_app->response()->headers()->exists('Test-1'));
-        $this->assertTrue($this->klein_app->response()->headers()->exists('Test-2'));
-        $this->assertFalse($this->klein_app->response()->headers()->exists('Test-3'));
+        $this->assertTrue($this->klein_app->getResponse()->headers()->exists('Test-1'));
+        $this->assertTrue($this->klein_app->getResponse()->headers()->exists('Test-2'));
+        $this->assertFalse($this->klein_app->getResponse()->headers()->exists('Test-3'));
     }
 
     public function testGetAlias()
@@ -2053,11 +2053,11 @@ class RoutingTest extends AbstractKleinTest
             MockRequestFactory::create('/foo%2Fbar'),
             null,
             true,
-            Klein::DISPATCH_CAPTURE_AND_RETURN
+            Router::DISPATCH_CAPTURE_AND_RETURN
         );
 
-        $this->assertSame(200, $this->klein_app->response()->code());
-        $this->assertSame('foo/bar', $this->klein_app->response()->body());
+        $this->assertSame(200, $this->klein_app->getResponse()->code());
+        $this->assertSame('foo/bar', $this->klein_app->getResponse()->body());
     }
 
     public function testMatchesDotAsNamedParam()
@@ -2073,11 +2073,11 @@ class RoutingTest extends AbstractKleinTest
             MockRequestFactory::create('/user@example.com/name'),
             null,
             true,
-            Klein::DISPATCH_CAPTURE_AND_RETURN
+            Router::DISPATCH_CAPTURE_AND_RETURN
         );
 
-        $this->assertSame(200, $this->klein_app->response()->code());
-        $this->assertSame('user@example.com', $this->klein_app->response()->body());
+        $this->assertSame(200, $this->klein_app->getResponse()->code());
+        $this->assertSame('user@example.com', $this->klein_app->getResponse()->body());
     }
 
     public function testMatchesDotOutsideOfNamedParam()
@@ -2099,11 +2099,11 @@ class RoutingTest extends AbstractKleinTest
             MockRequestFactory::create('/unicorn.png'),
             null,
             true,
-            Klein::DISPATCH_CAPTURE_AND_RETURN
+            Router::DISPATCH_CAPTURE_AND_RETURN
         );
 
-        $this->assertSame(200, $this->klein_app->response()->code());
-        $this->assertSame('woot!', $this->klein_app->response()->body());
+        $this->assertSame(200, $this->klein_app->getResponse()->code());
+        $this->assertSame('woot!', $this->klein_app->getResponse()->body());
         $this->assertSame('unicorn', $file);
         $this->assertSame('png', $ext);
     }
@@ -2120,13 +2120,13 @@ class RoutingTest extends AbstractKleinTest
         $this->klein_app->dispatch(
             MockRequestFactory::create('/file.ext')
         );
-        $this->assertSame(200, $this->klein_app->response()->code());
+        $this->assertSame(200, $this->klein_app->getResponse()->code());
 
         // Shouldn't match
         $this->klein_app->dispatch(
             MockRequestFactory::create('/file0ext')
         );
-        $this->assertSame(404, $this->klein_app->response()->code());
+        $this->assertSame(404, $this->klein_app->getResponse()->code());
     }
 
     public function testMatchesLiteralDotsInPathBeforeNamedParam()
@@ -2141,13 +2141,13 @@ class RoutingTest extends AbstractKleinTest
         $this->klein_app->dispatch(
             MockRequestFactory::create('/file.ext')
         );
-        $this->assertSame(200, $this->klein_app->response()->code());
+        $this->assertSame(200, $this->klein_app->getResponse()->code());
 
         // Shouldn't match
         $this->klein_app->dispatch(
             MockRequestFactory::create('/file0ext')
         );
-        $this->assertSame(404, $this->klein_app->response()->code());
+        $this->assertSame(404, $this->klein_app->getResponse()->code());
     }
 
     public function testMatchesLiteralPlusSignsInPaths()
@@ -2162,13 +2162,13 @@ class RoutingTest extends AbstractKleinTest
         $this->klein_app->dispatch(
             MockRequestFactory::create('/te+st')
         );
-        $this->assertSame(200, $this->klein_app->response()->code());
+        $this->assertSame(200, $this->klein_app->getResponse()->code());
 
         // Shouldn't match
         $this->klein_app->dispatch(
             MockRequestFactory::create('/teeeeeeeeest')
         );
-        $this->assertSame(404, $this->klein_app->response()->code());
+        $this->assertSame(404, $this->klein_app->getResponse()->code());
     }
 
     public function testMatchesParenthesesInPaths()
@@ -2182,7 +2182,7 @@ class RoutingTest extends AbstractKleinTest
         $this->klein_app->dispatch(
             MockRequestFactory::create('/test(bar)')
         );
-        $this->assertSame(200, $this->klein_app->response()->code());
+        $this->assertSame(200, $this->klein_app->getResponse()->code());
     }
 
     public function testMatchesAdvancedRegularExpressions()
@@ -2196,7 +2196,7 @@ class RoutingTest extends AbstractKleinTest
         $this->klein_app->dispatch(
             MockRequestFactory::create('/foooom/bar')
         );
-        $this->assertSame(200, $this->klein_app->response()->code());
+        $this->assertSame(200, $this->klein_app->getResponse()->code());
     }
 
     public function testApcDependencyFailsGracefully()
@@ -2213,7 +2213,7 @@ class RoutingTest extends AbstractKleinTest
         $this->klein_app->dispatch(
             MockRequestFactory::create('/test')
         );
-        $this->assertSame(200, $this->klein_app->response()->code());
+        $this->assertSame(200, $this->klein_app->getResponse()->code());
     }
 
     public function testRoutePathCompilationFailure()

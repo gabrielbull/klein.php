@@ -433,15 +433,15 @@ class ResponsesTest extends AbstractKleinTest
         // Assert headers were passed
         $this->assertEquals(
             $file_mime,
-            $this->klein_app->response()->headers()->get('Content-Type')
+            $this->klein_app->getResponse()->headers()->get('Content-Type')
         );
         $this->assertEquals(
             filesize(__FILE__),
-            $this->klein_app->response()->headers()->get('Content-Length')
+            $this->klein_app->getResponse()->headers()->get('Content-Length')
         );
         $this->assertContains(
             $file_name,
-            $this->klein_app->response()->headers()->get('Content-Disposition')
+            $this->klein_app->getResponse()->headers()->get('Content-Disposition')
         );
     }
 
@@ -463,13 +463,13 @@ class ResponsesTest extends AbstractKleinTest
         // Assert headers were passed
         $this->assertEquals(
             filesize(__FILE__),
-            $this->klein_app->response()->headers()->get('Content-Length')
+            $this->klein_app->getResponse()->headers()->get('Content-Length')
         );
         $this->assertNotNull(
-            $this->klein_app->response()->headers()->get('Content-Type')
+            $this->klein_app->getResponse()->headers()->get('Content-Type')
         );
         $this->assertNotNull(
-            $this->klein_app->response()->headers()->get('Content-Disposition')
+            $this->klein_app->getResponse()->headers()->get('Content-Disposition')
         );
     }
 
@@ -502,15 +502,15 @@ class ResponsesTest extends AbstractKleinTest
         // Assert headers were passed
         $this->assertEquals(
             'no-cache',
-            $this->klein_app->response()->headers()->get('Pragma')
+            $this->klein_app->getResponse()->headers()->get('Pragma')
         );
         $this->assertEquals(
             'no-store, no-cache',
-            $this->klein_app->response()->headers()->get('Cache-Control')
+            $this->klein_app->getResponse()->headers()->get('Cache-Control')
         );
         $this->assertEquals(
             'application/json',
-            $this->klein_app->response()->headers()->get('Content-Type')
+            $this->klein_app->getResponse()->headers()->get('Content-Type')
         );
     }
 
@@ -538,15 +538,15 @@ class ResponsesTest extends AbstractKleinTest
         // Assert headers were passed
         $this->assertEquals(
             'no-cache',
-            $this->klein_app->response()->headers()->get('Pragma')
+            $this->klein_app->getResponse()->headers()->get('Pragma')
         );
         $this->assertEquals(
             'no-store, no-cache',
-            $this->klein_app->response()->headers()->get('Cache-Control')
+            $this->klein_app->getResponse()->headers()->get('Cache-Control')
         );
         $this->assertEquals(
             'text/javascript',
-            $this->klein_app->response()->headers()->get('Content-Type')
+            $this->klein_app->getResponse()->headers()->get('Content-Type')
         );
     }
 }

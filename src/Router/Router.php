@@ -12,9 +12,8 @@ use Router\Exceptions\RegularExpressionCompilationException;
 use Router\Exceptions\RoutePathCompilationException;
 use Router\Exceptions\UnhandledException;
 
-class Klein
+class Router
 {
-
     /**
      * The regular expression used to compile and match URL's
      *
@@ -31,7 +30,6 @@ class Klein
 
     /**
      * Dispatch route output handling
-     *
      * Don't capture anything. Behave as normal.
      *
      * @const int
@@ -40,7 +38,6 @@ class Klein
 
     /**
      * Dispatch route output handling
-     *
      * Capture all output and return it from dispatch
      *
      * @const int
@@ -49,7 +46,6 @@ class Klein
 
     /**
      * Dispatch route output handling
-     *
      * Capture all output and replace the response body with it
      *
      * @const int
@@ -58,7 +54,6 @@ class Klein
 
     /**
      * Dispatch route output handling
-     *
      * Capture all output and prepend it to the response body
      *
      * @const int
@@ -67,13 +62,11 @@ class Klein
 
     /**
      * Dispatch route output handling
-     *
      * Capture all output and append it to the response body
      *
      * @const int
      */
     const DISPATCH_CAPTURE_AND_APPEND = 4;
-
 
     /**
      * Collection of the routes to match on dispatch
@@ -111,11 +104,6 @@ class Klein
      */
     protected $afterFilterCallbacks = array();
 
-
-    /**
-     * Route objects
-     */
-
     /**
      * The Request object passed to each matched route
      *
@@ -144,7 +132,6 @@ class Klein
      */
     protected $app;
 
-
     /**
      * Constructor
      *
@@ -171,53 +158,93 @@ class Klein
     }
 
     /**
-     * Returns the routes object
-     *
      * @return RouteCollection
      */
-    public function routes()
+    public function getRoutes()
     {
         return $this->routes;
     }
 
     /**
-     * Returns the request object
-     *
+     * @param RouteCollection $routes
+     * @return $this
+     */
+    public function setRoutes(RouteCollection $routes)
+    {
+        $this->routes = $routes;
+        return $this;
+    }
+
+    /**
      * @return Request
      */
-    public function request()
+    public function getRequest()
     {
         return $this->request;
     }
 
     /**
-     * Returns the response object
-     *
+     * @param Request $request
+     * @return $this
+     */
+    public function setRequest(Request $request)
+    {
+        $this->request = $request;
+        return $this;
+    }
+
+    /**
      * @return Response
      */
-    public function response()
+    public function getResponse()
     {
         return $this->response;
     }
 
     /**
-     * Returns the service object
-     *
+     * @param Response $response
+     * @return $this
+     */
+    public function setResponse(Response $response)
+    {
+        $this->response = $response;
+        return $this;
+    }
+
+    /**
      * @return ServiceProvider
      */
-    public function service()
+    public function getService()
     {
         return $this->service;
     }
 
     /**
-     * Returns the app object
-     *
+     * @param ServiceProvider $service
+     * @return $this
+     */
+    public function setService(ServiceProvider $service)
+    {
+        $this->service = $service;
+        return $this;
+    }
+
+    /**
      * @return mixed
      */
-    public function app()
+    public function getApp()
     {
         return $this->app;
+    }
+
+    /**
+     * @param mixed $app
+     * @return $this
+     */
+    public function setApp($app)
+    {
+        $this->app = $app;
+        return $this;
     }
 
     /**

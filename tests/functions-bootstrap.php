@@ -39,5 +39,5 @@ function test_num_args_wrapper($args)
 
 function test_response_edit_wrapper($klein)
 {
-    $klein->response()->body('after callbacks!');
+    $klein->getResponse()->body('after callbacks!');
 }

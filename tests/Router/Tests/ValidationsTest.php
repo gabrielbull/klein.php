@@ -14,7 +14,7 @@ class ValidationsTest extends AbstractKleinTest
         parent::setUp();
 
         // Bind objects to our service
-        $this->klein_app->service()->bind(new Request(), new Response());
+        $this->klein_app->getService()->bind(new Request(), new Response());
 
         // Setup our error handler
         $this->klein_app->onError(array($this, 'errorHandler'), false);
@@ -711,7 +711,7 @@ class ValidationsTest extends AbstractKleinTest
     public function testCustomValidator()
     {
         // Add our custom validator
-        $this->klein_app->service()->addValidator(
+        $this->klein_app->getService()->addValidator(
             'donkey',
             function ($string, $color) {
                 $regex_str = $color . '[-_]?donkey';
@@ -779,7 +779,7 @@ class ValidationsTest extends AbstractKleinTest
     public function testCustomValidatorWithManyArgs()
     {
         // Add our custom validator
-        $this->klein_app->service()->addValidator(
+        $this->klein_app->getService()->addValidator(
             'booleanEqual',
             function ($string, $args) {
                 // Get the args
@@ -805,16 +805,16 @@ class ValidationsTest extends AbstractKleinTest
             }
         );
 
-        $this->klein_app->service()->validateParam('tRUe')
+        $this->klein_app->getService()->validateParam('tRUe')
             ->isBooleanEqual(1, true, 'true');
 
-        $this->klein_app->service()->validateParam('false')
+        $this->klein_app->getService()->validateParam('false')
             ->isBooleanEqual(0, null, '', array(), '0', false);
     }
 
     public function testValidatorReturnsResult()
     {
-        $result = $this->klein_app->service()->validateParam('12', false)
+        $result = $this->klein_app->getService()->validateParam('12', false)
             ->isInt();
 
         $this->assertNotNull($result);
@@ -826,7 +826,7 @@ class ValidationsTest extends AbstractKleinTest
      */
     public function testValidatorThatDoesntExist()
     {
-        $result = $this->klein_app->service()->validateParam('12')
+        $result = $this->klein_app->getService()->validateParam('12')
             ->isALongNameOfAThingThatDoesntExist();
     }
 }

@@ -256,14 +256,14 @@ class ServiceProviderTest extends AbstractKleinTest
         $this->klein_app->dispatch();
 
         $this->assertSame(
-            $this->klein_app->request()->uri(),
-            $this->klein_app->response()->headers()->get('location')
+            $this->klein_app->getRequest()->uri(),
+            $this->klein_app->getResponse()->headers()->get('location')
         );
-        $this->assertTrue($this->klein_app->response()->isLocked());
+        $this->assertTrue($this->klein_app->getResponse()->isLocked());
 
         // Make sure we got a 3xx response code
-        $this->assertGreaterThan(299, $this->klein_app->response()->code());
-        $this->assertLessThan(400, $this->klein_app->response()->code());
+        $this->assertGreaterThan(299, $this->klein_app->getResponse()->code());
+        $this->assertLessThan(400, $this->klein_app->getResponse()->code());
     }
 
     public function testBack()
@@ -283,13 +283,13 @@ class ServiceProviderTest extends AbstractKleinTest
 
         $this->assertSame(
             $url,
-            $this->klein_app->response()->headers()->get('location')
+            $this->klein_app->getResponse()->headers()->get('location')
         );
-        $this->assertTrue($this->klein_app->response()->isLocked());
+        $this->assertTrue($this->klein_app->getResponse()->isLocked());
 
         // Make sure we got a 3xx response code
-        $this->assertGreaterThan(299, $this->klein_app->response()->code());
-        $this->assertLessThan(400, $this->klein_app->response()->code());
+        $this->assertGreaterThan(299, $this->klein_app->getResponse()->code());
+        $this->assertLessThan(400, $this->klein_app->getResponse()->code());
     }
 
     public function testBackWithoutRefererSet()
@@ -304,11 +304,11 @@ class ServiceProviderTest extends AbstractKleinTest
 
         $this->klein_app->dispatch($request);
 
-        $this->assertTrue($this->klein_app->response()->isLocked());
+        $this->assertTrue($this->klein_app->getResponse()->isLocked());
 
         // Make sure we got a 3xx response code
-        $this->assertGreaterThan(299, $this->klein_app->response()->code());
-        $this->assertLessThan(400, $this->klein_app->response()->code());
+        $this->assertGreaterThan(299, $this->klein_app->getResponse()->code());
+        $this->assertLessThan(400, $this->klein_app->getResponse()->code());
     }
 
     public function testLayoutGetSet()
