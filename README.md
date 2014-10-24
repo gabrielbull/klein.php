@@ -1,4 +1,4 @@
-# Klein.php
+# Router
 
 [![Build Status](https://travis-ci.org/chriso/klein.php.png?branch=master)](https://travis-ci.org/chriso/klein.php)
 
@@ -11,14 +11,14 @@
 ## Getting started
 
 1. PHP 5.3.x is required
-2. Install Klein using [Composer](#composer-installation) (recommended) or manually
+2. Install Router using [Composer](#composer-installation) (recommended) or manually
 3. Setup [URL rewriting](https://gist.github.com/874000) so that all requests are handled by **index.php**
 4. (Optional) Throw in some [APC](http://pecl.php.net/package/APC) for good measure
 
 ## Composer Installation
 
 1. Get [Composer](http://getcomposer.org/)
-2. Require Klein with `php composer.phar require klein/klein v2.0.x`
+2. Require Router with `php composer.phar require klein/klein v2.0.x`
 3. Install dependencies with `php composer.phar install`
 
 ## Example
@@ -29,7 +29,7 @@
 <?php
 require_once __DIR__ . '/vendor/autoload.php';
 
-$klein = new \Klein\Klein();
+$klein = new \Router\Router();
 
 $klein->respond('GET', '/hello-world', function () {
     return 'Hello World!';
@@ -158,7 +158,7 @@ foreach(array('projects', 'posts') as $controller) {
 }
 ```
 
-Included files are run in the scope of Klein (`$klein`) so all Klein
+Included files are run in the scope of Router (`$klein`) so all Router
 methods/properties can be accessed with `$this`
 
 _Example file for: "controllers/projects.php"_
@@ -400,7 +400,7 @@ $validator->
 
 ## Unit Testing
 
-Unit tests are a crucial part of developing a routing engine such as Klein.
+Unit tests are a crucial part of developing a routing engine such as Router.
 Added features or bug-fixes can have adverse effects that are hard to find
 without a lot of testing, hence the importance of unit testing.
 

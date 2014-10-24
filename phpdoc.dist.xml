@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <phpdoc>
-    <title>Klein</title>
+    <title>Router</title>
     <files>
         <directory>src</directory>
     </files>

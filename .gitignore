@@ -1,9 +1,23 @@
-# Composer
-composer.lock
-vendor/
-
-# Auto-generated documentation directory (phpDocumentor)
-docs/
-
-# Auto-generated code coverage report
-report/
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+Desktop.ini
+*.sassc
+*.scssc
+compass_app_log.txt
+/.sass-cache/
+/.idea/
+/.vagrant/
+/project.xml
+/phpunit.xml
+/phpunit.phar
+/composer.phar
+/composer.lock
+/vendor/
+/bower_components/
+/node_modules/
+/npm-debug.log
+/stylesheets/
+build.txt
