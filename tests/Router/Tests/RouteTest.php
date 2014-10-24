@@ -2,7 +2,6 @@
 namespace Router\Tests;
 
 use InvalidArgumentException;
-use Router\Klein;
 use Router\Route;
 
 class RouteTest extends AbstractKleinTest

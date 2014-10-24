@@ -1,9 +1,6 @@
 <?php
 namespace Router\Tests;
 
-use Router\AbstractRouteFactory;
-use Router\Route;
-
 class AbstractRouteFactoryTest extends AbstractKleinTest
 {
 
@@ -26,7 +23,6 @@ class AbstractRouteFactoryTest extends AbstractKleinTest
         return $this->getMockBuilder('\Klein\AbstractRouteFactory')
             ->setMethods($methods_to_mock);
     }
-
 
 
     public function testNamespaceGetSet()

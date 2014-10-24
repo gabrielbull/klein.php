@@ -1,9 +1,9 @@
 <?php
 namespace Router\Tests\DataCollection;
 
-use Router\Tests\AbstractKleinTest;
 use Router\DataCollection\ResponseCookieDataCollection;
 use Router\ResponseCookie;
+use Router\Tests\AbstractKleinTest;
 
 class ResponseCookieDataCollectionTest extends AbstractKleinTest
 {
@@ -39,7 +39,6 @@ class ResponseCookieDataCollectionTest extends AbstractKleinTest
             array($sample_cookie, $sample_other_cookie),
         );
     }
-
 
 
     /**

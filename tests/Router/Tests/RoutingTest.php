@@ -55,23 +55,23 @@ class RoutingTest extends AbstractKleinTest
     {
         // Create expected objects
         $expected_objects = array(
-            'request'         => null,
-            'response'        => null,
-            'service'         => null,
-            'app'             => null,
-            'klein'           => null,
-            'matched'         => null,
+            'request' => null,
+            'response' => null,
+            'service' => null,
+            'app' => null,
+            'klein' => null,
+            'matched' => null,
             'methods_matched' => null,
         );
 
         $this->klein_app->respond(
             function ($a, $b, $c, $d, $e, $f, $g) use (&$expected_objects) {
-                $expected_objects['request']         = $a;
-                $expected_objects['response']        = $b;
-                $expected_objects['service']         = $c;
-                $expected_objects['app']             = $d;
-                $expected_objects['klein']           = $e;
-                $expected_objects['matched']         = $f;
+                $expected_objects['request'] = $a;
+                $expected_objects['response'] = $b;
+                $expected_objects['service'] = $c;
+                $expected_objects['app'] = $d;
+                $expected_objects['klein'] = $e;
+                $expected_objects['matched'] = $f;
                 $expected_objects['methods_matched'] = $g;
             }
         );
@@ -883,7 +883,7 @@ class RoutingTest extends AbstractKleinTest
             '/posts/[*:title][i:id]',
             function ($request) {
                 echo $request->param('title')
-                . $request->param('id');
+                    . $request->param('id');
             }
         );
 
@@ -915,19 +915,19 @@ class RoutingTest extends AbstractKleinTest
         $this->klein_app->respond(
             '/[*:cpath]/[:slug].[:format]',
             function ($rq) {
-                echo 'matchA:slug='.$rq->param("slug").'--';
+                echo 'matchA:slug=' . $rq->param("slug") . '--';
             }
         );
         $this->klein_app->respond(
             '/[*:cpath]/[:slug].[:format]?',
             function ($rq) {
-                echo 'matchB:slug='.$rq->param("slug").'--';
+                echo 'matchB:slug=' . $rq->param("slug") . '--';
             }
         );
         $this->klein_app->respond(
             '/[*:cpath]/[a:slug].[:format]?',
             function ($rq) {
-                echo 'matchC:slug='.$rq->param("slug").'--';
+                echo 'matchC:slug=' . $rq->param("slug") . '--';
             }
         );
 
@@ -957,7 +957,7 @@ class RoutingTest extends AbstractKleinTest
             '/[:controller]?/[:action]?',
             function ($request) {
                 echo $request->param('controller')
-                     . '-' . $request->param('action');
+                    . '-' . $request->param('action');
             }
         );
 
@@ -1431,7 +1431,7 @@ class RoutingTest extends AbstractKleinTest
 
                 // Add access control headers
                 foreach ($expected_headers as $header) {
-                    $response->header($header[ 'key' ], $header[ 'val' ]);
+                    $response->header($header['key'], $header['val']);
                 }
             }
         );
@@ -1788,7 +1788,7 @@ class RoutingTest extends AbstractKleinTest
     public function testDispatchAbortCallsHttpError()
     {
         $test_code = 666;
-        $this->expectOutputString('1,aborted,'. $test_code);
+        $this->expectOutputString('1,aborted,' . $test_code);
 
         $this->klein_app->onHttpError(
             function ($code, $klein_app) {
@@ -2083,7 +2083,7 @@ class RoutingTest extends AbstractKleinTest
     public function testMatchesDotOutsideOfNamedParam()
     {
         $file = null;
-        $ext  = null;
+        $ext = null;
 
         $this->klein_app->respond(
             '/[:file].[:ext]',

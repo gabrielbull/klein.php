@@ -12,7 +12,7 @@ abstract class AbstractKleinTest extends PHPUnit_Framework_TestCase
     /**
      * The automatically created test Router instance
      * (for easy testing and less boilerplate)
-     * 
+     *
      * @var \Router\Klein;
      */
     protected $klein_app;
@@ -21,7 +21,7 @@ abstract class AbstractKleinTest extends PHPUnit_Framework_TestCase
     /**
      * Setup our test
      * (runs before each test)
-     * 
+     *
      * @return void
      */
     protected function setUp()
@@ -37,8 +37,8 @@ abstract class AbstractKleinTest extends PHPUnit_Framework_TestCase
      * This is mostly useful, since the tests would otherwise have to make a bunch of calls
      * concerning the argument order and constants. DRY, bitch. ;)
      *
-     * @param Request $request      Custom Router "Request" object
-     * @param Response $response    Custom Router "Response" object
+     * @param Request $request Custom Router "Request" object
+     * @param Response $response Custom Router "Response" object
      * @return mixed The output of the dispatch call
      */
     protected function dispatchAndReturnOutput($request = null, $response = null)
@@ -54,7 +54,7 @@ abstract class AbstractKleinTest extends PHPUnit_Framework_TestCase
     /**
      * Runs a callable and asserts that the output from the executed callable
      * matches the passed in expected output
-     * 
+     *
      * @param mixed $expected The expected output
      * @param callable $callback The callable function
      * @param string $message (optional) A message to display if the assertion fails
@@ -79,7 +79,7 @@ abstract class AbstractKleinTest extends PHPUnit_Framework_TestCase
 
     /**
      * Loads externally defined routes under the filename's namespace
-     * 
+     *
      * @param Klein $app_context The application context to attach the routes to
      * @return array
      */

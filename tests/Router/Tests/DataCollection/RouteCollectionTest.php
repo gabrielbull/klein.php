@@ -1,9 +1,9 @@
 <?php
 namespace Router\Tests\DataCollection;
 
-use Router\Tests\AbstractKleinTest;
 use Router\DataCollection\RouteCollection;
 use Router\Route;
+use Router\Tests\AbstractKleinTest;
 
 class RouteCollectionTest extends AbstractKleinTest
 {

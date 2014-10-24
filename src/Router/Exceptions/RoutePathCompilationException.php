@@ -23,8 +23,6 @@ class RoutePathCompilationException extends RuntimeException implements KleinExc
     const FAILURE_MESSAGE_TITLE_FORMAT = 'Failed with message: "%s"';
 
 
-
-
     /**
      * The route that failed to compile
      *
@@ -33,22 +31,21 @@ class RoutePathCompilationException extends RuntimeException implements KleinExc
     protected $route;
 
 
-
     /**
      * Create a RoutePathCompilationException from a route
      * and an optional previous exception
      *
-     * @param Route $route          The route that failed to compile
-     * @param Exception $previous   The previous exception
+     * @param Route $route The route that failed to compile
+     * @param Exception $previous The previous exception
      * @return RoutePathCompilationException
      */
     public static function createFromRoute(Route $route, Exception $previous = null)
     {
         $error = (null !== $previous) ? $previous->getMessage() : null;
-        $code  = (null !== $previous) ? $previous->getCode() : null;
+        $code = (null !== $previous) ? $previous->getCode() : null;
 
         $message = sprintf(static::MESSAGE_FORMAT, $route->getPath());
-        $message .= ' '. sprintf(static::FAILURE_MESSAGE_TITLE_FORMAT, $error);
+        $message .= ' ' . sprintf(static::FAILURE_MESSAGE_TITLE_FORMAT, $error);
 
         $exception = new static($message, $code, $previous);
         $exception->setRoute($route);

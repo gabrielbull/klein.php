@@ -24,12 +24,11 @@ class ServerDataCollection extends DataCollection
     );
 
 
-
     /**
      * Quickly check if a string has a passed prefix
      *
-     * @param string $string    The string to check
-     * @param string $prefix    The prefix to test
+     * @param string $string The string to check
+     * @param string $prefix The prefix to test
      * @return boolean
      */
     public static function hasPrefix($string, $prefix)
@@ -58,9 +57,7 @@ class ServerDataCollection extends DataCollection
             // Does our server attribute have our header prefix?
             if (self::hasPrefix($key, self::$http_header_prefix)) {
                 // Add our server attribute to our header array
-                $headers[
-                    substr($key, strlen(self::$http_header_prefix))
-                ] = $value;
+                $headers[substr($key, strlen(self::$http_header_prefix))] = $value;
 
             } elseif (in_array($key, self::$http_nonprefixed_headers)) {
                 // Add our server attribute to our header array

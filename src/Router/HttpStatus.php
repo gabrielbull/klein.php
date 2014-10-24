@@ -117,35 +117,35 @@ class HttpStatus
     /**
      * Set the HTTP status code
      *
-     * @param int $code 
+     * @param int $code
      * @return HttpStatus
      */
     public function setCode($code)
     {
-        $this->code = (int) $code;
+        $this->code = (int)$code;
         return $this;
     }
 
     /**
      * Set the HTTP status message
      *
-     * @param string $message 
+     * @param string $message
      * @return HttpStatus
      */
     public function setMessage($message)
     {
-        $this->message = (string) $message;
+        $this->message = (string)$message;
         return $this;
     }
 
     /**
      * Get a string representation of our HTTP status
-     * 
+     *
      * @return string
      */
     public function getFormattedString()
     {
-        $string = (string) $this->code;
+        $string = (string)$this->code;
 
         if (null !== $this->message) {
             $string = $string . ' ' . $this->message;
@@ -174,13 +174,13 @@ class HttpStatus
      * Returns null if no corresponding message was
      * found for the passed in code
      *
-     * @param int $int 
+     * @param int $int
      * @return string | null
      */
     public static function getMessageFromCode($int)
     {
-        if (isset(static::$http_messages[ $int ])) {
-            return static::$http_messages[ $int ];
+        if (isset(static::$http_messages[$int])) {
+            return static::$http_messages[$int];
         } else {
             return null;
         }

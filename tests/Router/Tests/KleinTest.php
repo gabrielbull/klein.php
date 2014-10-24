@@ -2,23 +2,21 @@
 namespace Router\Tests;
 
 use Exception;
+use OutOfBoundsException;
 use Router\App;
 use Router\DataCollection\RouteCollection;
 use Router\Exceptions\DispatchHaltedException;
-use Router\Exceptions\HttpException;
 use Router\Exceptions\HttpExceptionInterface;
 use Router\Klein;
 use Router\Request;
 use Router\Response;
 use Router\Route;
 use Router\ServiceProvider;
-use OutOfBoundsException;
 
 class KleinTest extends AbstractKleinTest
 {
 
     const TEST_CALLBACK_MESSAGE = 'yay';
-
 
 
     protected function getTestCallable($message = self::TEST_CALLBACK_MESSAGE)
@@ -27,7 +25,6 @@ class KleinTest extends AbstractKleinTest
             return $message;
         };
     }
-
 
 
     public function testConstructor()
@@ -134,7 +131,7 @@ class KleinTest extends AbstractKleinTest
     {
         // Test data
         $test_namespace = '/test/namespace';
-        $test_routes_include = __DIR__ .'/routes/random.php';
+        $test_routes_include = __DIR__ . '/routes/random.php';
 
         // Test file include
         $this->assertEmpty($this->klein_app->routes()->all());
@@ -231,11 +228,11 @@ class KleinTest extends AbstractKleinTest
         // Create expected arguments
         $num_of_args = 0;
         $expected_arguments = array(
-            'code'            => null,
-            'klein'           => null,
-            'matched'         => null,
+            'code' => null,
+            'klein' => null,
+            'matched' => null,
             'methods_matched' => null,
-            'exception'       => null,
+            'exception' => null,
         );
 
         $this->klein_app->onHttpError(
@@ -248,7 +245,7 @@ class KleinTest extends AbstractKleinTest
                 $expected_arguments['methods_matched'] = $methods_matched;
                 $expected_arguments['exception'] = $exception;
 
-                $klein->response()->body($code .' error');
+                $klein->response()->body($code . ' error');
             }
         );
 

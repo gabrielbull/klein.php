@@ -13,7 +13,6 @@ abstract class AbstractRouteFactory
     protected $namespace;
 
 
-
     /**
      * Constructor
      *
@@ -42,7 +41,7 @@ abstract class AbstractRouteFactory
      */
     public function setNamespace($namespace)
     {
-        $this->namespace = (string) $namespace;
+        $this->namespace = (string)$namespace;
 
         return $this;
     }
@@ -55,7 +54,7 @@ abstract class AbstractRouteFactory
      */
     public function appendNamespace($namespace)
     {
-        $this->namespace .= (string) $namespace;
+        $this->namespace .= (string)$namespace;
 
         return $this;
     }
@@ -65,11 +64,11 @@ abstract class AbstractRouteFactory
      *
      * This method should be implemented to return a Route instance
      *
-     * @param callable $callback    Callable callback method to execute on route match
-     * @param string $path          Route URI path to match
-     * @param string|array $method  HTTP Method to match
-     * @param boolean $count_match  Whether or not to count the route as a match when counting total matches
-     * @param string $name          The name of the route
+     * @param callable $callback Callable callback method to execute on route match
+     * @param string $path Route URI path to match
+     * @param string|array $method HTTP Method to match
+     * @param boolean $count_match Whether or not to count the route as a match when counting total matches
+     * @param string $name The name of the route
      * @abstract
      * @return Route
      */

@@ -2,8 +2,8 @@
 namespace Router;
 
 use Router\DataCollection\DataCollection;
-use Router\DataCollection\ServerDataCollection;
 use Router\DataCollection\HeaderDataCollection;
+use Router\DataCollection\ServerDataCollection;
 
 class Request
 {
@@ -71,17 +71,16 @@ class Request
     protected $body;
 
 
-
     /**
      * Constructor
      *
      * Create a new Request object and define all of its request data
      *
-     * @param array  $params_get
-     * @param array  $params_post
-     * @param array  $cookies
-     * @param array  $server
-     * @param array  $files
+     * @param array $params_get
+     * @param array $params_post
+     * @param array $cookies
+     * @param array $server
+     * @param array $files
      * @param string $body
      */
     public function __construct(
@@ -91,15 +90,16 @@ class Request
         array $server = array(),
         array $files = array(),
         $body = null
-    ) {
+    )
+    {
         // Assignment city...
-        $this->params_get   = new DataCollection($params_get);
-        $this->params_post  = new DataCollection($params_post);
-        $this->cookies      = new DataCollection($cookies);
-        $this->server       = new ServerDataCollection($server);
-        $this->headers      = new HeaderDataCollection($this->server->getHeaders());
-        $this->files        = new DataCollection($files);
-        $this->body         = $body ? (string) $body : null;
+        $this->params_get = new DataCollection($params_get);
+        $this->params_post = new DataCollection($params_post);
+        $this->cookies = new DataCollection($cookies);
+        $this->server = new ServerDataCollection($server);
+        $this->headers = new HeaderDataCollection($this->server->getHeaders());
+        $this->files = new DataCollection($files);
+        $this->body = $body ? (string)$body : null;
 
         // Non-injected assignments
         $this->params_named = new DataCollection();
@@ -129,7 +129,7 @@ class Request
      *
      * Generates one on the first call
      *
-     * @param boolean $hash     Whether or not to hash the ID on creation
+     * @param boolean $hash Whether or not to hash the ID on creation
      * @return string
      */
     public function id($hash = true)
@@ -237,8 +237,8 @@ class Request
      * you'd like this method to exclude in the returned array
      *
      * @see \Klein\DataCollection\DataCollection::all()
-     * @param array $mask               The parameter mask array
-     * @param boolean $fill_with_nulls  Whether or not to fill the returned array
+     * @param array $mask The parameter mask array
+     * @param boolean $fill_with_nulls Whether or not to fill the returned array
      *  with null values to match the given mask
      * @return array
      */
@@ -267,8 +267,8 @@ class Request
     /**
      * Return a request parameter, or $default if it doesn't exist
      *
-     * @param string $key       The name of the parameter to return
-     * @param mixed $default    The default value of the parameter if it contains no value
+     * @param string $key The name of the parameter to return
+     * @param mixed $default The default value of the parameter if it contains no value
      * @return string
      */
     public function param($key, $default = null)
@@ -285,7 +285,7 @@ class Request
      * Allows the ability to arbitrarily check the existence of a parameter
      * from this instance while treating it as an instance property
      *
-     * @param string $param     The name of the parameter
+     * @param string $param The name of the parameter
      * @return boolean
      */
     public function __isset($param)
@@ -302,7 +302,7 @@ class Request
      * Allows the ability to arbitrarily request a parameter from this instance
      * while treating it as an instance property
      *
-     * @param string $param     The name of the parameter
+     * @param string $param The name of the parameter
      * @return string
      */
     public function __get($param)
@@ -319,8 +319,8 @@ class Request
      * NOTE: This currently sets the "named" parameters, since that's the
      * one collection that we have the most sane control over
      *
-     * @param string $param     The name of the parameter
-     * @param mixed $value      The value of the parameter
+     * @param string $param The name of the parameter
+     * @param mixed $value The value of the parameter
      * @return void
      */
     public function __set($param, $value)
@@ -334,7 +334,7 @@ class Request
      * Allows the ability to arbitrarily remove a parameter from this instance
      * while treating it as an instance property
      *
-     * @param string $param     The name of the parameter
+     * @param string $param The name of the parameter
      * @return void
      */
     public function __unset($param)
@@ -406,9 +406,9 @@ class Request
      * $request->method('post') // returns true
      * $request->method('get') // returns false
      * </code>
-     * 
-     * @param string $is				The method to check the current request method against
-     * @param boolean $allow_override	Whether or not to allow HTTP method overriding via header or params
+     *
+     * @param string $is The method to check the current request method against
+     * @param boolean $allow_override Whether or not to allow HTTP method overriding via header or params
      * @return string | boolean
      */
     public function method($is = null, $allow_override = true)
@@ -438,8 +438,8 @@ class Request
     /**
      * Adds to or modifies the current query string
      *
-     * @param string $key   The name of the query param
-     * @param mixed $value  The value of the query param
+     * @param string $key The name of the query param
+     * @param mixed $value The value of the query param
      * @return string
      */
     public function query($key, $value = null)

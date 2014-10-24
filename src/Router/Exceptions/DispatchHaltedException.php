@@ -28,15 +28,12 @@ class DispatchHaltedException extends RuntimeException implements KleinException
     const SKIP_REMAINING = 0;
 
 
-
-
     /**
      * The number of next matches to skip on a "next" skip
      *
      * @var int
      */
     protected $number_of_skips = 1;
-
 
 
     /**
@@ -48,7 +45,7 @@ class DispatchHaltedException extends RuntimeException implements KleinException
     {
         return $this->number_of_skips;
     }
-    
+
     /**
      * Sets the number of matches to skip on a "next" skip
      *
@@ -57,7 +54,7 @@ class DispatchHaltedException extends RuntimeException implements KleinException
      */
     public function setNumberOfSkips($number_of_skips)
     {
-        $this->number_of_skips = (int) $number_of_skips;
+        $this->number_of_skips = (int)$number_of_skips;
 
         return $this;
     }

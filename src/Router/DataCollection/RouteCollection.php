@@ -32,8 +32,8 @@ class RouteCollection extends DataCollection
      * instance of a Route as the "$value"
      *
      * @see DataCollection::set()
-     * @param string $key                   The name of the route to set
-     * @param Route|callable $value         The value of the route to set
+     * @param string $key The name of the route to set
+     * @param Route|callable $value The value of the route to set
      * @return RouteCollection
      */
     public function set($key, $value)

@@ -2,11 +2,10 @@
 namespace Router\Tests;
 
 use BadMethodCallException;
-use Router\Klein;
-use Router\Tests\Mocks\MockRequestFactory;
-use Router\Validator;
 use Router\Request;
 use Router\Response;
+use Router\Tests\Mocks\MockRequestFactory;
+use Router\Validator;
 
 class ValidationsTest extends AbstractKleinTest
 {
@@ -791,10 +790,10 @@ class ValidationsTest extends AbstractKleinTest
 
                 foreach ($args as $arg) {
                     if (null !== $previous) {
-                        if ((bool) $arg != (bool) $previous) {
+                        if ((bool)$arg != (bool)$previous) {
                             echo 'nope';
                             var_dump($arg, $previous);
-                            var_dump((bool) $arg, (bool) $previous);
+                            var_dump((bool)$arg, (bool)$previous);
                             return false;
                         }
                     } else {

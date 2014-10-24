@@ -48,12 +48,11 @@ class ServiceProvider
     protected $shared_data;
 
 
-
     /**
      * Constructor
      *
-     * @param Request $request              Object containing all HTTP request data and behaviors
-     * @param AbstractResponse $response    Object containing all HTTP response data and behaviors
+     * @param Request $request Object containing all HTTP request data and behaviors
+     * @param AbstractResponse $response Object containing all HTTP response data and behaviors
      */
     public function __construct(Request $request = null, AbstractResponse $response = null)
     {
@@ -67,14 +66,14 @@ class ServiceProvider
     /**
      * Bind object instances to this service
      *
-     * @param Request $request              Object containing all HTTP request data and behaviors
-     * @param AbstractResponse $response    Object containing all HTTP response data and behaviors
+     * @param Request $request Object containing all HTTP request data and behaviors
+     * @param AbstractResponse $response Object containing all HTTP response data and behaviors
      * @return ServiceProvider
      */
     public function bind(Request $request = null, AbstractResponse $response = null)
     {
         // Keep references
-        $this->request  = $request  ?: $this->request;
+        $this->request = $request ?: $this->request;
         $this->response = $response ?: $this->response;
 
         return $this;
@@ -112,9 +111,9 @@ class ServiceProvider
     /**
      * Stores a flash message of $type
      *
-     * @param string $msg       The message to flash
-     * @param string $type      The flash message type
-     * @param array $params     Optional params to be parsed by markdown
+     * @param string $msg The message to flash
+     * @param string $type The flash message type
+     * @param array $params Optional params to be parsed by markdown
      * @return void
      */
     public function flash($msg, $type = 'info', $params = null)
@@ -135,7 +134,7 @@ class ServiceProvider
     /**
      * Returns and clears all flashes of optional $type
      *
-     * @param string $type  The name of the flash message type
+     * @param string $type The name of the flash message type
      * @return array
      */
     public function flashes($type = null)
@@ -165,8 +164,8 @@ class ServiceProvider
      * Also, this method takes in EITHER an array of optional arguments (as the second parameter)
      * ... OR this method will simply take a variable number of arguments (after the initial str arg)
      *
-     * @param string $str   The text string to parse
-     * @param array $args   Optional arguments to be parsed by markdown
+     * @param string $str The text string to parse
+     * @param array $args Optional arguments to be parsed by markdown
      * @return string
      */
     public static function markdown($str, $args = null)
@@ -174,8 +173,8 @@ class ServiceProvider
         // Create our markdown parse/conversion regex's
         $md = array(
             '/\[([^\]]++)\]\(([^\)]++)\)/' => '<a href="$2">$1</a>',
-            '/\*\*([^\*]++)\*\*/'          => '<strong>$1</strong>',
-            '/\*([^\*]++)\*/'              => '<em>$1</em>'
+            '/\*\*([^\*]++)\*\*/' => '<strong>$1</strong>',
+            '/\*([^\*]++)\*/' => '<em>$1</em>'
         );
 
         // Let's make our arguments more "magical"
@@ -205,8 +204,8 @@ class ServiceProvider
      * to be shown in a UTF-8 HTML environment. Its options
      * are otherwise limited by design
      *
-     * @param string $str   The string to escape
-     * @param int $flags    A bitmask of `htmlentities()` compatible flags
+     * @param string $str The string to escape
+     * @param int $flags A bitmask of `htmlentities()` compatible flags
      * @return string
      */
     public static function escape($str, $flags = ENT_QUOTES)
@@ -252,7 +251,7 @@ class ServiceProvider
      * Simply calling this method without any arguments returns the current layout.
      * Calling with an argument, however, sets the layout to what was provided by the argument.
      *
-     * @param string $layout    The layout of the view
+     * @param string $layout The layout of the view
      * @return string|ServiceProvider
      */
     public function layout($layout = null)
@@ -279,8 +278,8 @@ class ServiceProvider
     /**
      * Renders a view + optional layout
      *
-     * @param string $view  The view to render
-     * @param array $data   The data to render in the view
+     * @param string $view The view to render
+     * @param array $data The data to render in the view
      * @return void
      */
     public function render($view, array $data = array())
@@ -310,8 +309,8 @@ class ServiceProvider
     /**
      * Renders a view without a layout
      *
-     * @param string $view  The view to render
-     * @param array $data   The data to render in the view
+     * @param string $view The view to render
+     * @param array $data The data to render in the view
      * @return void
      */
     public function partial($view, array $data = array())
@@ -325,8 +324,8 @@ class ServiceProvider
     /**
      * Add a custom validator for our validation method
      *
-     * @param string $method        The name of the validator method
-     * @param callable $callback    The callback to perform on validation
+     * @param string $method The name of the validator method
+     * @param callable $callback The callback to perform on validation
      * @return void
      */
     public function addValidator($method, $callback)
@@ -337,8 +336,8 @@ class ServiceProvider
     /**
      * Start a validator chain for the specified string
      *
-     * @param string $string    The string to validate
-     * @param string $err       The custom exception message to throw
+     * @param string $string The string to validate
+     * @param string $err The custom exception message to throw
      * @return Validator
      */
     public function validate($string, $err = null)
@@ -349,8 +348,8 @@ class ServiceProvider
     /**
      * Start a validator chain for the specified parameter
      *
-     * @param string $param     The name of the parameter to validate
-     * @param string $err       The custom exception message to throw
+     * @param string $param The name of the parameter to validate
+     * @param string $err The custom exception message to throw
      * @return Validator
      */
     public function validateParam($param, $err = null)
@@ -365,7 +364,7 @@ class ServiceProvider
      * Allows the ability to arbitrarily check the existence of shared data
      * from this instance while treating it as an instance property
      *
-     * @param string $key     The name of the shared data
+     * @param string $key The name of the shared data
      * @return boolean
      */
     public function __isset($key)
@@ -379,7 +378,7 @@ class ServiceProvider
      * Allows the ability to arbitrarily request shared data from this instance
      * while treating it as an instance property
      *
-     * @param string $key     The name of the shared data
+     * @param string $key The name of the shared data
      * @return string
      */
     public function __get($key)
@@ -393,8 +392,8 @@ class ServiceProvider
      * Allows the ability to arbitrarily set shared data from this instance
      * while treating it as an instance property
      *
-     * @param string $key     The name of the shared data
-     * @param mixed $value      The value of the shared data
+     * @param string $key The name of the shared data
+     * @param mixed $value The value of the shared data
      * @return void
      */
     public function __set($key, $value)
@@ -408,7 +407,7 @@ class ServiceProvider
      * Allows the ability to arbitrarily remove shared data from this instance
      * while treating it as an instance property
      *
-     * @param string $key     The name of the shared data
+     * @param string $key The name of the shared data
      * @return void
      */
     public function __unset($key)

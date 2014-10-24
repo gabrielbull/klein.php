@@ -1,8 +1,8 @@
 <?php
 namespace Router\Tests\DataCollection;
 
-use Router\Tests\AbstractKleinTest;
 use Router\DataCollection\ServerDataCollection;
+use Router\Tests\AbstractKleinTest;
 
 class ServerDataCollectionTest extends AbstractKleinTest
 {
@@ -31,7 +31,7 @@ class ServerDataCollectionTest extends AbstractKleinTest
             'HTTP_CONNECTION' => 'keep-alive',
             'HTTP_CONTENT_LENGTH' => '137',
             'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.31'
-                .' (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.31',
+                . ' (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.31',
             'HTTP_CACHE_CONTROL' => 'no-cache',
             'HTTP_ORIGIN' => 'chrome-extension://fdmmgilgnpjigdojojpjoooidkmcomcm',
             'HTTP_AUTHORIZATION' => 'Basic MTIzOjQ1Ng==',

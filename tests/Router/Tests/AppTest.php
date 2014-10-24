@@ -9,14 +9,12 @@ class AppTest extends AbstractKleinTest
     const TEST_CALLBACK_MESSAGE = 'yay';
 
 
-
     protected function getTestCallable($message = self::TEST_CALLBACK_MESSAGE)
     {
         return function () use ($message) {
             return $message;
         };
     }
-
 
 
     public function testRegisterFiller()

@@ -1,12 +1,11 @@
 <?php
 namespace Router\Tests;
 
-use Router\Klein;
+use Router\DataCollection\DataCollection;
 use Router\Request;
 use Router\Response;
-use Router\Validator;
 use Router\ServiceProvider;
-use Router\DataCollection\DataCollection;
+use Router\Validator;
 
 class ServiceProviderTest extends AbstractKleinTest
 {
@@ -335,18 +334,18 @@ class ServiceProviderTest extends AbstractKleinTest
             'title' => 'about',
             'verb' => 'woot',
         );
- 
+
         $this->klein_app->respond(
             function ($request, $response, $service) use ($test_data) {
                 // Set some data manually
                 $service->sharedData()->set('name', 'should be overwritten');
 
                 // Set our layout
-                $service->layout(__DIR__.'/views/layout.php');
+                $service->layout(__DIR__ . '/views/layout.php');
 
                 // Render our view, and pass some MORE data
                 $service->render(
-                    __DIR__.'/views/test.php',
+                    __DIR__ . '/views/test.php',
                     $test_data
                 );
             }
@@ -356,9 +355,9 @@ class ServiceProviderTest extends AbstractKleinTest
 
         $this->expectOutputString(
             '<h1>About</h1>' . PHP_EOL
-            .'My name is Trevor Suarez.' . PHP_EOL
-            .'WOOT!' . PHP_EOL
-            .'<div>footer</div>' . PHP_EOL
+            . 'My name is Trevor Suarez.' . PHP_EOL
+            . 'WOOT!' . PHP_EOL
+            . '<div>footer</div>' . PHP_EOL
         );
     }
 
@@ -372,18 +371,18 @@ class ServiceProviderTest extends AbstractKleinTest
 
         $response = new Response();
         $response->chunk();
- 
+
         $this->klein_app->respond(
             function ($request, $response, $service) use ($test_data) {
                 // Set some data manually
                 $service->sharedData()->set('name', 'should be overwritten');
 
                 // Set our layout
-                $service->layout(__DIR__.'/views/layout.php');
+                $service->layout(__DIR__ . '/views/layout.php');
 
                 // Render our view, and pass some MORE data
                 $service->render(
-                    __DIR__.'/views/test.php',
+                    __DIR__ . '/views/test.php',
                     $test_data
                 );
             }
@@ -393,9 +392,9 @@ class ServiceProviderTest extends AbstractKleinTest
 
         $this->expectOutputString(
             '<h1>About</h1>' . PHP_EOL
-            .'My name is Trevor Suarez.' . PHP_EOL
-            .'WOOT!' . PHP_EOL
-            .'<div>footer</div>' . PHP_EOL
+            . 'My name is Trevor Suarez.' . PHP_EOL
+            . 'WOOT!' . PHP_EOL
+            . '<div>footer</div>' . PHP_EOL
         );
     }
 
@@ -406,15 +405,15 @@ class ServiceProviderTest extends AbstractKleinTest
             'title' => 'about',
             'verb' => 'woot',
         );
- 
+
         $this->klein_app->respond(
             function ($request, $response, $service) use ($test_data) {
                 // Set our layout
-                $service->layout(__DIR__.'/views/layout.php');
+                $service->layout(__DIR__ . '/views/layout.php');
 
                 // Render our view, and pass some MORE data
                 $service->partial(
-                    __DIR__.'/views/test.php',
+                    __DIR__ . '/views/test.php',
                     $test_data
                 );
             }
@@ -425,7 +424,7 @@ class ServiceProviderTest extends AbstractKleinTest
         // Make sure the layout doesn't get included
         $this->expectOutputString(
             'My name is Trevor Suarez.' . PHP_EOL
-            .'WOOT!' . PHP_EOL
+            . 'WOOT!' . PHP_EOL
         );
     }
 

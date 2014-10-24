@@ -12,7 +12,6 @@ class RouteFactory extends AbstractRouteFactory
     const NULL_PATH_VALUE = '*';
 
 
-
     /**
      * Check if the path is null or equal to our match-all, null-like value
      *
@@ -50,7 +49,7 @@ class RouteFactory extends AbstractRouteFactory
     protected function preprocessPathString($path)
     {
         // If the path is null, make sure to give it our match-all value
-        $path = (null === $path) ? static::NULL_PATH_VALUE : (string) $path;
+        $path = (null === $path) ? static::NULL_PATH_VALUE : (string)$path;
 
         // If a custom regular expression (or negated custom regex)
         if ($this->namespace &&
@@ -93,11 +92,11 @@ class RouteFactory extends AbstractRouteFactory
     /**
      * Build a Route instance
      *
-     * @param callable $callback    Callable callback method to execute on route match
-     * @param string $path          Route URI path to match
-     * @param string|array $method  HTTP Method to match
-     * @param boolean $count_match  Whether or not to count the route as a match when counting total matches
-     * @param string $name          The name of the route
+     * @param callable $callback Callable callback method to execute on route match
+     * @param string $path Route URI path to match
+     * @param string|array $method HTTP Method to match
+     * @param boolean $count_match Whether or not to count the route as a match when counting total matches
+     * @param string $name The name of the route
      * @return Route
      */
     public function build($callback, $path = null, $method = null, $count_match = true, $name = null)

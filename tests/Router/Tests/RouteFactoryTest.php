@@ -1,14 +1,13 @@
 <?php
 namespace Router\Tests;
 
-use Router\RouteFactory;
 use Router\Route;
+use Router\RouteFactory;
 
 class RouteFactoryTest extends AbstractKleinTest
 {
 
     const TEST_CALLBACK_MESSAGE = 'yay';
-
 
 
     protected function getTestCallable($message = self::TEST_CALLBACK_MESSAGE)
@@ -19,13 +18,13 @@ class RouteFactoryTest extends AbstractKleinTest
     }
 
 
-
     public function testBuildBasic(
         $test_namespace = null,
         $test_path = null,
         $test_paths_match = true,
         $should_match = true
-    ) {
+    )
+    {
         // Test data
         $test_path = is_string($test_path) ? $test_path : '/test';
         $test_callable = $this->getTestCallable();
