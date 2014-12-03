@@ -5,15 +5,17 @@ class RequestController
 {
     public function createRequestFromGlobals()
     {
+        $requestBody = file_get_contents('php://input');
+
         $request = new PsrRequest();
-        $request->setBody(new Body(http_get_request_body_stream()));
+        $request->setBody(new Body($requestBody));
         $request->setMethod($this->getMethodFromServerParameters());
         $request->setUrl($this->getUrlFromServerParameters());
         $request->setServerParams(isset($_SERVER) ? $_SERVER : []);
         $request->setCookieParams(isset($_COOKIE) ? $_COOKIE : []);
         $request->setQueryParams(isset($_GET) ? $_GET : []);
         $request->setFileParams(isset($_FILES) ? $_FILES : []);
-        $request->setBodyParams($this->getBodyParametersFromGlobals());
+        $request->setBodyParams($this->getBodyParametersFromGlobals($requestBody));
         $request->setHeaders($this->getHeaders());
         $request->setProtocolVersion($this->getProtocolVersionFromServerParameters());
     }
@@ -65,12 +67,12 @@ class RequestController
     }
 
     /**
+     * @param string $requestBody
      * @return array
      */
-    private function getBodyParametersFromGlobals()
+    private function getBodyParametersFromGlobals($requestBody)
     {
         $parameters = isset($_POST) ? $_POST : [];
-        $requestBody = file_get_contents('php://input');
 
         if (is_string($requestBody)) {
             $requestBodyParameters = json_decode($requestBody, true);
