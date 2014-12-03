@@ -128,13 +128,6 @@ class Router
     protected $response;
 
     /**
-     * The service provider object passed to each matched route
-     *
-     * @var ServiceProvider
-     */
-    protected $service;
-
-    /**
      * A generic variable passed to each matched route
      *
      * @var mixed
@@ -147,20 +140,17 @@ class Router
      * Create a new Router instance with optionally injected dependencies
      * This DI allows for easy testing, object mocking, or class extension
      *
-     * @param ServiceProvider $service Service provider object responsible for utilitarian behaviors
      * @param mixed $app An object passed to each route callback, defaults to an App instance
      * @param RouteCollection $routes Collection object responsible for containing all route instances
      * @param AbstractRouteFactory $route_factory A factory class responsible for creating Route instances
      */
     public function __construct(
-        ServiceProvider $service = null,
         $app = null,
         RouteCollection $routes = null,
         AbstractRouteFactory $route_factory = null
     )
     {
         // Instanciate and fall back to defaults
-        $this->service = $service ?: new ServiceProvider();
         $this->app = $app ?: new App();
         $this->routes = $routes ?: new RouteCollection();
         $this->route_factory = $route_factory ?: new RouteFactory();
@@ -234,24 +224,6 @@ class Router
     public function setResponse(Response $response)
     {
         $this->response = $response;
-        return $this;
-    }
-
-    /**
-     * @return ServiceProvider
-     */
-    public function getService()
-    {
-        return $this->service;
-    }
-
-    /**
-     * @param ServiceProvider $service
-     * @return $this
-     */
-    public function setService(ServiceProvider $service)
-    {
-        $this->service = $service;
         return $this;
     }
 
@@ -419,9 +391,6 @@ class Router
         // Set/Initialize our objects to be sent in each callback
         $this->request = $request ?: Request::createFromGlobals();
         $this->response = $response ?: new Response();
-
-        // Bind our objects to our service
-        $this->service->bind($this->request, $this->response);
 
         // Prepare any named routes
         $this->routes->prepareNamed();
@@ -869,7 +838,6 @@ class Router
             $route->getCallback(), // Instead of relying on the slower "invoke" magic
             $this->request,
             $this->response,
-            $this->service,
             $this->app,
             $this, // Pass the Router instance
             $matched,
@@ -922,11 +890,6 @@ class Router
                         call_user_func($callback, $this, $msg, $type, $err);
 
                         return;
-                    }
-                } else {
-                    if (null !== $this->service && null !== $this->response) {
-                        $this->service->flash($err);
-                        $this->response->redirect($callback);
                     }
                 }
             }
@@ -1032,64 +995,6 @@ class Router
         } catch (Exception $e) {
             $this->error($e);
         }
-    }
-
-
-    /**
-     * Method aliases
-     */
-
-    /**
-     * Quick alias to skip the current callback/route method from executing
-     *
-     * @throws DispatchHaltedException To halt/skip the current dispatch loop
-     * @return void
-     */
-    public function skipThis()
-    {
-        throw new DispatchHaltedException(null, DispatchHaltedException::SKIP_THIS);
-    }
-
-    /**
-     * Quick alias to skip the next callback/route method from executing
-     *
-     * @param int $num The number of next matches to skip
-     * @throws DispatchHaltedException To halt/skip the current dispatch loop
-     * @return void
-     */
-    public function skipNext($num = 1)
-    {
-        $skip = new DispatchHaltedException(null, DispatchHaltedException::SKIP_NEXT);
-        $skip->setNumberOfSkips($num);
-
-        throw $skip;
-    }
-
-    /**
-     * Quick alias to stop the remaining callbacks/route methods from executing
-     *
-     * @throws DispatchHaltedException To halt/skip the current dispatch loop
-     * @return void
-     */
-    public function skipRemaining()
-    {
-        throw new DispatchHaltedException(null, DispatchHaltedException::SKIP_REMAINING);
-    }
-
-    /**
-     * Alias to set a response code, lock the response, and halt the route matching/dispatching
-     *
-     * @param int $code Optional HTTP status code to send
-     * @throws DispatchHaltedException To halt/skip the current dispatch loop
-     * @return void
-     */
-    public function abort($code = null)
-    {
-        if (null !== $code) {
-            throw HttpException::createFromCode($code);
-        }
-
-        throw new DispatchHaltedException();
     }
 
     /**

@@ -35,14 +35,6 @@ class RouterTest extends AbstractKleinTest
         $this->assertTrue($klein instanceof Router);
     }
 
-    public function testService()
-    {
-        $service = $this->klein_app->getService();
-
-        $this->assertNotNull($service);
-        $this->assertTrue($service instanceof ServiceProvider);
-    }
-
     public function testApp()
     {
         $app = $this->klein_app->getApp();
@@ -200,6 +192,7 @@ class RouterTest extends AbstractKleinTest
         );
     }
 
+    // todo me
     public function testOnErrorWithBadCallables()
     {
         $this->klein_app->onError('this_function_doesnt_exist');
@@ -210,17 +203,13 @@ class RouterTest extends AbstractKleinTest
             }
         );
 
-        $this->assertEmpty($this->klein_app->getService()->flashes());
-
         $this->assertSame(
             '',
             $this->dispatchAndReturnOutput()
         );
 
-        $this->assertNotEmpty($this->klein_app->getService()->flashes());
-
         // Clean up
-        session_destroy();
+        //session_destroy();
     }
 
     public function testOnHttpError()
@@ -382,61 +371,6 @@ class RouterTest extends AbstractKleinTest
             500,
             $this->klein_app->getResponse()->code()
         );
-    }
-
-    public function testSkipThis()
-    {
-        try {
-            $this->klein_app->skipThis();
-        } catch (Exception $e) {
-            $this->assertTrue($e instanceof DispatchHaltedException);
-            $this->assertSame(DispatchHaltedException::SKIP_THIS, $e->getCode());
-            $this->assertSame(1, $e->getNumberOfSkips());
-        }
-    }
-
-    public function testSkipNext()
-    {
-        $number_of_skips = 3;
-
-        try {
-            $this->klein_app->skipNext($number_of_skips);
-        } catch (Exception $e) {
-            $this->assertTrue($e instanceof DispatchHaltedException);
-            $this->assertSame(DispatchHaltedException::SKIP_NEXT, $e->getCode());
-            $this->assertSame($number_of_skips, $e->getNumberOfSkips());
-        }
-    }
-
-    public function testSkipRemaining()
-    {
-        try {
-            $this->klein_app->skipRemaining();
-        } catch (Exception $e) {
-            $this->assertTrue($e instanceof DispatchHaltedException);
-            $this->assertSame(DispatchHaltedException::SKIP_REMAINING, $e->getCode());
-        }
-    }
-
-    public function testAbort()
-    {
-        $test_code = 503;
-
-        $this->klein_app->respond(
-            function ($a, $b, $c, $d, $klein_app) use ($test_code) {
-                $klein_app->abort($test_code);
-            }
-        );
-
-        try {
-            $this->klein_app->dispatch();
-        } catch (Exception $e) {
-            $this->assertTrue($e instanceof DispatchHaltedException);
-            $this->assertSame(DispatchHaltedException::SKIP_REMAINING, $e->getCode());
-        }
-
-        $this->assertSame($test_code, $this->klein_app->getResponse()->code());
-        $this->assertTrue($this->klein_app->getResponse()->isLocked());
     }
 
     public function testOptions()

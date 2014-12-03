@@ -65,14 +65,13 @@ class RoutingTest extends AbstractKleinTest
         );
 
         $this->klein_app->respond(
-            function ($a, $b, $c, $d, $e, $f, $g) use (&$expected_objects) {
+            function ($a, $b, $c, $d, $e, $f) use (&$expected_objects) {
                 $expected_objects['request'] = $a;
                 $expected_objects['response'] = $b;
-                $expected_objects['service'] = $c;
-                $expected_objects['app'] = $d;
-                $expected_objects['klein'] = $e;
-                $expected_objects['matched'] = $f;
-                $expected_objects['methods_matched'] = $g;
+                $expected_objects['app'] = $c;
+                $expected_objects['klein'] = $d;
+                $expected_objects['matched'] = $e;
+                $expected_objects['methods_matched'] = $f;
             }
         );
 
@@ -80,7 +79,6 @@ class RoutingTest extends AbstractKleinTest
 
         $this->assertTrue($expected_objects['request'] instanceof Request);
         $this->assertTrue($expected_objects['response'] instanceof Response);
-        $this->assertTrue($expected_objects['service'] instanceof ServiceProvider);
         $this->assertTrue($expected_objects['app'] instanceof App);
         $this->assertTrue($expected_objects['klein'] instanceof Router);
         $this->assertTrue($expected_objects['matched'] instanceof RouteCollection);
@@ -88,7 +86,6 @@ class RoutingTest extends AbstractKleinTest
 
         $this->assertSame($expected_objects['request'], $this->klein_app->request());
         $this->assertSame($expected_objects['response'], $this->klein_app->getResponse());
-        $this->assertSame($expected_objects['service'], $this->klein_app->getService());
         $this->assertSame($expected_objects['app'], $this->klein_app->getApp());
         $this->assertSame($expected_objects['klein'], $this->klein_app);
     }
@@ -1278,7 +1275,7 @@ class RoutingTest extends AbstractKleinTest
         );
         $this->klein_app->respond(
             405,
-            function ($a, $b, $c, $d, $e, $f, $methods) use (&$resultArray) {
+            function ($a, $b, $c, $d, $e, $methods) use (&$resultArray) {
                 $resultArray = $methods;
             }
         );
@@ -1636,187 +1633,6 @@ class RoutingTest extends AbstractKleinTest
             '/',
             $this->klein_app->getPathFor('complex-neg-regex', null, false)
         );
-    }
-
-    public function testDispatchHalt()
-    {
-        $this->expectOutputString('2,4,7,8,');
-
-        $this->klein_app->respond(
-            function ($a, $b, $c, $d, $klein_app) {
-                $klein_app->skipThis();
-                echo '1,';
-            }
-        );
-        $this->klein_app->respond(
-            function ($a, $b, $c, $d, $klein_app) {
-                echo '2,';
-                $klein_app->skipNext();
-            }
-        );
-        $this->klein_app->respond(
-            function ($a, $b, $c, $d, $klein_app) {
-                echo '3,';
-            }
-        );
-        $this->klein_app->respond(
-            function ($a, $b, $c, $d, $klein_app) {
-                echo '4,';
-                $klein_app->skipNext(2);
-            }
-        );
-        $this->klein_app->respond(
-            function ($a, $b, $c, $d, $klein_app) {
-                echo '5,';
-            }
-        );
-        $this->klein_app->respond(
-            function ($a, $b, $c, $d, $klein_app) {
-                echo '6,';
-            }
-        );
-        $this->klein_app->respond(
-            function ($a, $b, $c, $d, $klein_app) {
-                echo '7,';
-            }
-        );
-        $this->klein_app->respond(
-            function ($a, $b, $c, $d, $klein_app) {
-                echo '8,';
-                $klein_app->skipRemaining();
-            }
-        );
-        $this->klein_app->respond(
-            function ($a, $b, $c, $d, $klein_app) {
-                echo '9,';
-            }
-        );
-        $this->klein_app->respond(
-            function ($a, $b, $c, $d, $klein_app) {
-                echo '10,';
-            }
-        );
-
-        $this->klein_app->dispatch();
-    }
-
-    public function testDispatchSkipCauses404()
-    {
-        $this->expectOutputString('404');
-
-        $this->klein_app->onHttpError(
-            function ($code) {
-                if (404 === $code) {
-                    echo '404';
-                }
-            }
-        );
-
-        $this->klein_app->respond(
-            'POST',
-            '/steez',
-            function ($a, $b, $c, $d, $klein_app) {
-                $klein_app->skipThis();
-                echo 'Style... with ease';
-            }
-        );
-        $this->klein_app->respond(
-            'GET',
-            '/nope',
-            function ($a, $b, $c, $d, $klein_app) {
-                echo 'How did I get here?!';
-            }
-        );
-
-        $this->klein_app->dispatch(
-            MockRequestFactory::create('/steez', 'POST')
-        );
-    }
-
-    public function testDispatchAbort()
-    {
-        $this->expectOutputString('1,');
-
-        $this->klein_app->respond(
-            function ($a, $b, $c, $d, $klein_app) {
-                echo '1,';
-            }
-        );
-        $this->klein_app->respond(
-            function ($a, $b, $c, $d, $klein_app) {
-                $klein_app->abort();
-                echo '2,';
-            }
-        );
-        $this->klein_app->respond(
-            function ($a, $b, $c, $d, $klein_app) {
-                echo '3,';
-            }
-        );
-
-        $this->klein_app->dispatch();
-
-        $this->assertSame(404, $this->klein_app->getResponse()->code());
-    }
-
-    public function testDispatchAbortWithCode()
-    {
-        $this->expectOutputString('1,');
-
-        $this->klein_app->respond(
-            function ($a, $b, $c, $d, $klein_app) {
-                echo '1,';
-            }
-        );
-        $this->klein_app->respond(
-            function ($a, $b, $c, $d, $klein_app) {
-                $klein_app->abort(404);
-                echo '2,';
-            }
-        );
-        $this->klein_app->respond(
-            function ($a, $b, $c, $d, $klein_app) {
-                echo '3,';
-            }
-        );
-
-        $this->klein_app->dispatch();
-
-        $this->assertSame(404, $this->klein_app->getResponse()->code());
-    }
-
-    public function testDispatchAbortCallsHttpError()
-    {
-        $test_code = 666;
-        $this->expectOutputString('1,aborted,' . $test_code);
-
-        $this->klein_app->onHttpError(
-            function ($code, $klein_app) {
-                echo 'aborted,';
-                echo $code;
-            }
-        );
-
-        $this->klein_app->respond(
-            function ($a, $b, $c, $d, $klein_app) {
-                echo '1,';
-            }
-        );
-        $this->klein_app->respond(
-            function ($a, $b, $c, $d, $klein_app) use ($test_code) {
-                $klein_app->abort($test_code);
-                echo '2,';
-            }
-        );
-        $this->klein_app->respond(
-            function ($a, $b, $c, $d, $klein_app) {
-                echo '3,';
-            }
-        );
-
-        $this->klein_app->dispatch();
-
-        $this->assertSame($test_code, $this->klein_app->getResponse()->code());
     }
 
     /**
