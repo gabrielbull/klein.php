@@ -5,12 +5,11 @@ use Exception;
 use OutOfBoundsException;
 use Router\App;
 use Router\DataCollection\RouteCollection;
-use Router\Exceptions\DispatchHaltedException;
 use Router\Exceptions\HttpExceptionInterface;
-use Router\Router;
 use Router\Request;
 use Router\Response;
 use Router\Route;
+use Router\Router;
 use Router\ServiceProvider;
 
 class RouterTest extends AbstractKleinTest

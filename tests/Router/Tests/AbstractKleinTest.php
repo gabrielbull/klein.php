@@ -2,9 +2,9 @@
 namespace Router\Tests;
 
 use PHPUnit_Framework_TestCase;
-use Router\Router;
 use Router\Request;
 use Router\Response;
+use Router\Router;
 
 abstract class AbstractKleinTest extends PHPUnit_Framework_TestCase
 {

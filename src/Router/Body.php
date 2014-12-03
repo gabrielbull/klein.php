@@ -3,7 +3,7 @@ namespace Router;
 
 use Psr\Http\Message\StreamableInterface;
 
-class Body implements  StreamableInterface
+class Body implements StreamableInterface
 {
     /**
      * @var resource
@@ -18,7 +18,7 @@ class Body implements  StreamableInterface
         if (is_resource($content)) {
             $this->resource = $content;
         } elseif (is_string($content)) {
-            $this->resource = fopen('php://memory','r+');
+            $this->resource = fopen('php://memory', 'r+');
             fwrite($this->resource, $content);
             rewind($this->resource);
         } elseif (null !== $content) {

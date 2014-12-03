@@ -1,8 +1,8 @@
 <?php
 namespace Router;
 
-use Psr\Http\Message\StreamableInterface;
 use Psr\Http\Message\IncomingRequestInterface;
+use Psr\Http\Message\StreamableInterface;
 
 class PsrRequest implements IncomingRequestInterface
 {

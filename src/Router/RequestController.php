@@ -98,7 +98,7 @@ class RequestController
     private function getHeaders()
     {
         $headers = [];
-        foreach(getallheaders() as $key => $value) {
+        foreach (getallheaders() as $key => $value) {
             $headers[$key] = array_map('trim', explode(',', $value));
         }
         return $headers;
