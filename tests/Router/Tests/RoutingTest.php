@@ -86,7 +86,7 @@ class RoutingTest extends AbstractKleinTest
         $this->assertTrue($expected_objects['matched'] instanceof RouteCollection);
         $this->assertTrue(is_array($expected_objects['methods_matched']));
 
-        $this->assertSame($expected_objects['request'], $this->klein_app->getRequest());
+        $this->assertSame($expected_objects['request'], $this->klein_app->request());
         $this->assertSame($expected_objects['response'], $this->klein_app->getResponse());
         $this->assertSame($expected_objects['service'], $this->klein_app->getService());
         $this->assertSame($expected_objects['app'], $this->klein_app->getApp());

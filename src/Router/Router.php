@@ -111,8 +111,14 @@ class Router
      * The Request object passed to each matched route
      *
      * @var Request
+     * @deprecated
      */
     protected $request;
+
+    /**
+     * @var
+     */
+    protected $psrRequest;
 
     /**
      * The Response object passed to each matched route
@@ -179,19 +185,36 @@ class Router
     }
 
     /**
-     * @return Request
+     * @return PsrRequest
      */
     public function getRequest()
     {
-        return $this->request;
+        if (null === $this->psrRequest) {
+            (new RequestController())->createRequestFromGlobals();
+        }
+        return $this->psrRequest;
+    }
+
+    /**
+     * @param PsrRequest $request
+     * @return $this
+     */
+    public function setRequest(PsrRequest $request)
+    {
+        $this->psrRequest = $request;
+        return $this;
     }
 
     /**
      * @param Request $request
-     * @return $this
+     * @return $this|Request
+     * @deprecated
      */
-    public function setRequest(Request $request)
+    public function request(Request $request = null)
     {
+        if (null === $request) {
+            return $this->request;
+        }
         $this->request = $request;
         return $this;
     }

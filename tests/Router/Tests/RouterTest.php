@@ -63,7 +63,7 @@ class RouterTest extends AbstractKleinTest
     {
         $this->klein_app->dispatch();
 
-        $request = $this->klein_app->getRequest();
+        $request = $this->klein_app->request();
 
         $this->assertNotNull($request);
         $this->assertTrue($request instanceof Request);
@@ -153,7 +153,7 @@ class RouterTest extends AbstractKleinTest
 
         $this->klein_app->dispatch($request, $response);
 
-        $this->assertSame($request, $this->klein_app->getRequest());
+        $this->assertSame($request, $this->klein_app->request());
         $this->assertSame($response, $this->klein_app->getResponse());
     }
 

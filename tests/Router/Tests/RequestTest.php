@@ -260,7 +260,7 @@ class RequestTest extends AbstractKleinTest
 
         $this->klein_app->dispatch($request);
 
-        $expected_uri = parse_url($this->klein_app->getRequest()->uri(), PHP_URL_PATH);
+        $expected_uri = parse_url($this->klein_app->request()->uri(), PHP_URL_PATH);
 
         $this->assertSame(
             $expected_uri . '?' . $query_string . '&test=dog',

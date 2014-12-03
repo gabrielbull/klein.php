@@ -256,7 +256,7 @@ class ServiceProviderTest extends AbstractKleinTest
         $this->klein_app->dispatch();
 
         $this->assertSame(
-            $this->klein_app->getRequest()->uri(),
+            $this->klein_app->request()->uri(),
             $this->klein_app->getResponse()->headers()->get('location')
         );
         $this->assertTrue($this->klein_app->getResponse()->isLocked());
