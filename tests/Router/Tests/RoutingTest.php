@@ -79,7 +79,6 @@ class RoutingTest extends AbstractKleinTest
 
         $this->assertTrue($expected_objects['request'] instanceof Request);
         $this->assertTrue($expected_objects['response'] instanceof Response);
-        $this->assertTrue($expected_objects['app'] instanceof App);
         $this->assertTrue($expected_objects['klein'] instanceof Router);
         $this->assertTrue($expected_objects['matched'] instanceof RouteCollection);
         $this->assertTrue(is_array($expected_objects['methods_matched']));

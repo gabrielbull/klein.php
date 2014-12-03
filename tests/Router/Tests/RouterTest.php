@@ -35,14 +35,6 @@ class RouterTest extends AbstractKleinTest
         $this->assertTrue($klein instanceof Router);
     }
 
-    public function testApp()
-    {
-        $app = $this->klein_app->getApp();
-
-        $this->assertNotNull($app);
-        $this->assertTrue($app instanceof App);
-    }
-
     public function testRoutes()
     {
         $routes = $this->klein_app->getRoutes();

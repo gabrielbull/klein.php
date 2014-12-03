@@ -151,7 +151,7 @@ class Router
     )
     {
         // Instanciate and fall back to defaults
-        $this->app = $app ?: new App();
+        //$this->app = $app ?: new App();
         $this->routes = $routes ?: new RouteCollection();
         $this->route_factory = $route_factory ?: new RouteFactory();
     }
