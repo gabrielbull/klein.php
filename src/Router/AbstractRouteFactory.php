@@ -69,8 +69,9 @@ abstract class AbstractRouteFactory
      * @param string|array $method HTTP Method to match
      * @param boolean $count_match Whether or not to count the route as a match when counting total matches
      * @param string $name The name of the route
+     * @param bool $useNamespace
      * @abstract
      * @return Route
      */
-    abstract public function build($callback, $path = null, $method = null, $count_match = true, $name = null);
+    abstract public function build($callback, $path = null, $method = null, $count_match = true, $name = null, $useNamespace = true);
 }

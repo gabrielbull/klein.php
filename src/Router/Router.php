@@ -14,6 +14,9 @@ use Router\Exceptions\UnhandledException;
 
 class Router
 {
+    const ROUTE_NAMESPACE = true;
+    const ROUTE_NO_NAMESPACE = false;
+
     /**
      * The regular expression used to compile and match URL's
      *
@@ -303,17 +306,24 @@ class Router
      * @param string | array $method HTTP Method to match
      * @param string $path Route URI path to match
      * @param callable $callback Callable callback method to execute on route match
+     * @param bool $useNamespace
      * @return Route
+     * todo: namespace should be OOP and extendable/customizable, while keeping the simplicity
+     * of the current automated namespace system
      */
-    public function respond($method, $path = '*', $callback = null)
+    public function respond($method, $path = '*', $callback = null, $useNamespace = self::ROUTE_NAMESPACE)
     {
         // Get the arguments in a very loose format
+        $arguments = func_get_args();
+        if (isset($arguments[3])) {
+            unset($arguments[3]);
+        }
         extract(
-            $this->parseLooseArgumentOrder(func_get_args()),
+            $this->parseLooseArgumentOrder($arguments),
             EXTR_OVERWRITE
         );
 
-        $route = $this->route_factory->build($callback, $path, $method);
+        $route = $this->route_factory->build($callback, $path, $method, true, null, $useNamespace);
 
         $this->routes->add($route);
 

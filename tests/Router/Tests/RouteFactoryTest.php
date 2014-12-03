@@ -84,6 +84,15 @@ class RouteFactoryTest extends AbstractKleinTest
         $this->testBuildBasic($test_namespace, $test_path, false, true);
     }
 
+    public function testBuildWithNamespacedPath()
+    {
+        // Test data
+        $test_namespace = '/users';
+        $test_path = '/test';
+
+        $this->testBuildBasic($test_namespace, $test_path, false);
+    }
+
     public function testBuildWithCustomRegexPath()
     {
         // Test data

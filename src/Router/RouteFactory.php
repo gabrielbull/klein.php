@@ -44,15 +44,16 @@ class RouteFactory extends AbstractRouteFactory
      * It also adds the namespace in a specific part, based on the style of expression
      *
      * @param string $path
+     * @param bool $useNamespace
      * @return string
      */
-    protected function preprocessPathString($path)
+    protected function preprocessPathString($path, $useNamespace = true)
     {
         // If the path is null, make sure to give it our match-all value
         $path = (null === $path) ? static::NULL_PATH_VALUE : (string)$path;
 
         // If a custom regular expression (or negated custom regex)
-        if ($this->namespace &&
+        if (($useNamespace && $this->namespace) &&
             (isset($path[0]) && $path[0] === '@') ||
             (isset($path[0]) && $path[0] === '!' && isset($path[1]) && $path[1] === '@')
         ) {
@@ -78,12 +79,12 @@ class RouteFactory extends AbstractRouteFactory
                 $path = '@^' . $this->namespace . $path;
             }
 
-        } elseif ($this->namespace && $this->pathIsNull($path)) {
+        } elseif (($useNamespace && $this->namespace) && $this->pathIsNull($path)) {
             // Empty route with namespace is a match-all
             $path = '@^' . $this->namespace . '(/|$)';
         } else {
             // Just prepend our namespace
-            $path = $this->namespace . $path;
+            $path = ($useNamespace ? $this->namespace : null) . $path;
         }
 
         return $path;
@@ -97,13 +98,14 @@ class RouteFactory extends AbstractRouteFactory
      * @param string|array $method HTTP Method to match
      * @param boolean $count_match Whether or not to count the route as a match when counting total matches
      * @param string $name The name of the route
+     * @param bool $useNamespace
      * @return Route
      */
-    public function build($callback, $path = null, $method = null, $count_match = true, $name = null)
+    public function build($callback, $path = null, $method = null, $count_match = true, $name = null, $useNamespace = true)
     {
         return new Route(
             $callback,
-            $this->preprocessPathString($path),
+            $this->preprocessPathString($path, $useNamespace),
             $method,
             $this->shouldPathStringCauseRouteMatch($path) // Ignore the $count_match boolean that they passed
         );
