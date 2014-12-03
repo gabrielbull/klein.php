@@ -3,12 +3,16 @@ namespace Router\Tests;
 
 use Router\Route;
 use Router\RouteFactory;
+use Router\Router;
 
 class RouteFactoryTest extends AbstractKleinTest
 {
-
     const TEST_CALLBACK_MESSAGE = 'yay';
 
+    /**
+     * @var RouteFactory
+     */
+    private $routeFactory;
 
     protected function getTestCallable($message = self::TEST_CALLBACK_MESSAGE)
     {
@@ -17,6 +21,11 @@ class RouteFactoryTest extends AbstractKleinTest
         };
     }
 
+    public function setUp()
+    {
+        $this->klein_app = new Router();
+        $this->routeFactory = new RouteFactory();
+    }
 
     public function testBuildBasic(
         $test_namespace = null,
@@ -84,13 +93,21 @@ class RouteFactoryTest extends AbstractKleinTest
         $this->testBuildBasic($test_namespace, $test_path, false, true);
     }
 
-    public function testBuildWithNamespacedPath()
+    public function testBuildWithoutNamespacePath()
     {
-        // Test data
-        $test_namespace = '/users';
-        $test_path = '/test';
+        $this->routeFactory->setNamespace('MyTestNamespace');
 
-        $this->testBuildBasic($test_namespace, $test_path, false);
+        $path = '/mytestpath';
+        $route = $this->routeFactory->build(
+            $this->getTestCallable(),
+            $path,
+            null,
+            true,
+            null,
+            false
+        );
+
+        $this->assertEquals($path, $route->getPath());
     }
 
     public function testBuildWithCustomRegexPath()
