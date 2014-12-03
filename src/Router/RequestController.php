@@ -100,8 +100,13 @@ class RequestController
     private function getHeaders()
     {
         $headers = [];
-        foreach (getallheaders() as $key => $value) {
-            $headers[$key] = array_map('trim', explode(',', $value));
+        if (isset($_SERVER)) {
+            foreach ($_SERVER as $name => $value) {
+                if (substr($name, 0, 5) == 'HTTP_') {
+                    $name = str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))));
+                    $headers[$name] = $value;
+                }
+            }
         }
         return $headers;
     }
