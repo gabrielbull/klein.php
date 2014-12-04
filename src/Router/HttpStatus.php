@@ -76,7 +76,6 @@ class HttpStatus
         505 => 'HTTP Version Not Supported',
     );
 
-
     /**
      * Constructor
      *

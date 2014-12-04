@@ -23,7 +23,6 @@ class ServerDataCollection extends DataCollection
         'CONTENT_MD5',
     );
 
-
     /**
      * Quickly check if a string has a passed prefix
      *

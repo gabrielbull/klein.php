@@ -15,7 +15,6 @@ class DataCollection implements IteratorAggregate, ArrayAccess, Countable
      */
     protected $attributes = array();
 
-
     /**
      * Constructor
      *

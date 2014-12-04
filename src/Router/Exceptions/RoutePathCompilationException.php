@@ -7,7 +7,6 @@ use RuntimeException;
 
 class RoutePathCompilationException extends RuntimeException implements KleinExceptionInterface
 {
-
     /**
      * The exception message format
      *
@@ -22,14 +21,12 @@ class RoutePathCompilationException extends RuntimeException implements KleinExc
      */
     const FAILURE_MESSAGE_TITLE_FORMAT = 'Failed with message: "%s"';
 
-
     /**
      * The route that failed to compile
      *
      * @var Route
      */
     protected $route;
-
 
     /**
      * Create a RoutePathCompilationException from a route
