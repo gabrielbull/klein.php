@@ -3,6 +3,9 @@ namespace Router;
 
 class RequestController
 {
+    /**
+     * @return PsrRequest
+     */
     public function createRequestFromGlobals()
     {
         $requestBody = file_get_contents('php://input');
@@ -18,6 +21,8 @@ class RequestController
         $request->setBodyParams($this->getBodyParametersFromGlobals($requestBody));
         $request->setHeaders($this->getHeaders());
         $request->setProtocolVersion($this->getProtocolVersionFromServerParameters());
+
+        return $request;
     }
 
     /**
