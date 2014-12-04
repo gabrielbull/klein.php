@@ -180,7 +180,7 @@ class Router
     public function getRequest()
     {
         if (null === $this->psrRequest) {
-            (new RequestController())->createRequestFromGlobals();
+            $this->psrRequest = (new RequestController())->createRequestFromGlobals();
         }
         return $this->psrRequest;
     }
