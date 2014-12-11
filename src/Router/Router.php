@@ -549,6 +549,7 @@ class Router
                              */
                             $params = array_map('rawurldecode', $params);
 
+                            $this->getRequest()->setAttributes($params);
                             $this->request->paramsNamed()->merge($params);
                         }
 
