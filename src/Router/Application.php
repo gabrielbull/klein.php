@@ -2,7 +2,7 @@
 
 namespace Router;
 
-class RouterApplication
+class Application
 {
     /**
      * @var Router
@@ -22,7 +22,7 @@ class RouterApplication
      */
     public function add(RouterInterface $router)
     {
-        $router->init();
+        $router->initialize();
     }
 
     public function dispatch()
