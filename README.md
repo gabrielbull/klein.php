@@ -161,6 +161,41 @@ $router->respond('@\.(json|csv)$', ...
 $router->respond('!@^/admin/', ...
 ```
 
+## Generate url
+
+First, you have to instantiate a path generator and inject a router instance and (optionally) a domain prefix.
+
+```php
+$router = new \Router\Router();
+$pathGenerator = new \Router\PathGenerator($router, 'http://www.domain.com');
+```
+
+To generate an url from a route, you have to give a name to the route.
+
+```php
+$this->respond('GET', '/route/[:foo]', function ($request, $response) {
+    // Handling route here
+})->setName('packageName:routeName');
+```
+
+You can generate an url with the **generate** metod. The first argument is the name of the route followed by an array containing the url parameters. Finally, you can set **$absolute** (*3rd parameter*) to false to generate a relative path (default). 
+
+**[** *url parameters* **:** *value* **]**
+
+```php
+$pathGenerator->generate('packageName:routeName', [
+    'foo' => 'bar',
+], true);
+
+// return : http://www.domain.com/bar
+```
+
+You can add the **pathGenerator** into your favorite template engine and use it like this :
+
+```twig
+{{ path.generate('homepage') }}
+```
+
 ## API
 
 Below is a list of the public methods in the common classes you will most likely use. For a more formal source
@@ -218,3 +253,4 @@ $response->
     file($path, $filename = null)                   // Send a file
     json($object, $jsonp_prefix = null)             // Send an object as JSON or JSONP by providing padding prefix
 ```
+
