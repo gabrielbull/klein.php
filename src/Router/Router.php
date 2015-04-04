@@ -784,27 +784,35 @@ class Router
      * inspired by a similar effort by Gilles Bouthenot (@gbouthenot)
      *
      * @link https://github.com/gbouthenot
-     * @param string $route_name The name of the route
-     * @param array $params The array of placeholder fillers
+     *
+     * @param string  $route_name    The name of the route
+     * @param array   $params        The array of placeholder fillers
      * @param boolean $flatten_regex Optionally flatten custom regular expressions to "/"
+     *
      * @throws OutOfBoundsException     If the route requested doesn't exist
      * @return string
      */
-    public function getPathFor($route_name, array $params = null, $flatten_regex = true)
-    {
+    public function getPathFor(
+        $route_name,
+        array $params = null,
+        $flatten_regex = true
+    ) {
         // First, grab the route
         $route = $this->routes->get($route_name);
 
         // Make sure we are getting a valid route
         if (null === $route) {
-            throw new OutOfBoundsException('No such route with name: ' . $route_name);
+            throw new OutOfBoundsException('No such route with name: '
+                . $route_name);
         }
 
         $path = $route->getPath();
 
-        if (preg_match_all(static::ROUTE_COMPILE_REGEX, $path, $matches, PREG_SET_ORDER)) {
+        if (preg_match_all(static::ROUTE_COMPILE_REGEX, $path, $matches,
+            PREG_SET_ORDER)) {
             foreach ($matches as $match) {
-                list($block, $pre, $inner_block, $type, $param, $optional) = $match;
+                list($block, $pre, $inner_block, $type, $param, $optional)
+                    = $match;
 
                 if (isset($params[$param])) {
                     $path = str_replace($block, $pre . $params[$param], $path);
@@ -814,8 +822,17 @@ class Router
             }
 
         } elseif ($flatten_regex && strpos($path, '@') === 0) {
-            // If the path is a custom regular expression and we're "flattening", just return a slash
-            $path = '/';
+
+            // get the parent path
+            preg_match('#^\@\^(?<parentPath>.*)\.\*#', $path, $matches);
+
+            $parentPath = isset($matches['parentPath']) ?
+                $matches['parentPath'] : '';
+
+            // If the path is a custom regular expression and we're
+            //"flattening", just return the parent path and a slash
+
+            $path = $parentPath . '/';
         }
 
         return $path;
