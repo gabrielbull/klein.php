@@ -385,11 +385,6 @@ abstract class AbstractResponse
         // Mark as sent
         $this->sent = true;
 
-        // If there running FPM, tell the process manager to finish the server request/response handling
-        if (function_exists('fastcgi_finish_request')) {
-            fastcgi_finish_request();
-        }
-
         return $this;
     }
 
