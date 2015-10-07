@@ -1,9 +1,9 @@
 <?php
 namespace Router;
 
-use Psr\Http\Message\StreamableInterface;
+use Psr\Http\Message\StreamInterface;
 
-class Body implements StreamableInterface
+class Body implements StreamInterface
 {
     /**
      * @var resource
@@ -193,6 +193,11 @@ class Body implements StreamableInterface
      *                          the key is not found.
      */
     public function getMetadata($key = null)
+    {
+
+    }
+
+    public function rewind()
     {
 
     }
