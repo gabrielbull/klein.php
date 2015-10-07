@@ -1,10 +1,11 @@
 <?php
 namespace Router;
 
-use Psr\Http\Message\IncomingRequestInterface;
-use Psr\Http\Message\StreamableInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\StreamInterface;
+use Psr\Http\Message\UriInterface;
 
-class PsrRequest implements IncomingRequestInterface
+class PsrRequest implements RequestInterface
 {
     /**
      * @var Body
@@ -92,7 +93,7 @@ class PsrRequest implements IncomingRequestInterface
     /**
      * Gets the body of the message.
      *
-     * @return StreamableInterface
+     * @return StreamInterface
      */
     public function getBody()
     {
@@ -355,5 +356,59 @@ class PsrRequest implements IncomingRequestInterface
     public function setAttribute($attribute, $value)
     {
         $this->attributes[$attribute] = $value;
+    }
+
+    public function withProtocolVersion($version)
+    {
+
+    }
+
+    public function getHeaderLine($name)
+    {
+
+    }
+
+    public function withHeader($name, $value)
+    {
+
+    }
+
+    public function withAddedHeader($name, $value)
+    {
+
+    }
+
+    public function withoutHeader($name)
+    {
+
+    }
+
+    public function withBody(StreamInterface $body)
+    {
+
+    }
+
+    public function getRequestTarget()
+    {
+    }
+
+    public function withRequestTarget($requestTarget)
+    {
+
+    }
+
+    public function withMethod($method)
+    {
+
+    }
+
+    public function getUri()
+    {
+
+    }
+
+    public function withUri(UriInterface $uri, $preserveHost = false)
+    {
+
     }
 }
