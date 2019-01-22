@@ -67,7 +67,7 @@ class RouteFactory extends AbstractRouteFactory
             }
 
             // Regex anchored to front of string
-            if ($path[0] === '^') {
+            if (strlen($path) && $path[0] === '^') {
                 $path = substr($path, 1);
             } else {
                 $path = '.*' . $path;
